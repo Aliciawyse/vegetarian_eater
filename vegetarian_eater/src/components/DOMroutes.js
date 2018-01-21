@@ -6,6 +6,9 @@ const Domroutes = () =>
     <li className="home">
       <Link to="/">Home</Link>
     </li>
+    <li className="Login">
+      <Link to="/login">Login</Link>
+    </li>
     <li className="frecipes">
       <Link to="/find-recipes">Find Recipes</Link>
     </li>
