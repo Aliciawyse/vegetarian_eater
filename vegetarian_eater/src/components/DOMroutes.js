@@ -7,14 +7,14 @@ const Domroutes = () =>
       <Link to="/">Home</Link>
     </li>
     <li className="frecipes">
-      <Link to="/find-recipes">Blog</Link>
+      <Link to="/find-recipes">Find Recipes</Link>
     </li>
     <li className="frest">
-      <Link to="/find-restaurants">Contact</Link>
+      <Link to="/find-restaurants">Find Restaurants</Link>
     </li>
     <li
       className="postrecipes">
-      <Link to="/post-recipes">Learn</Link>
+      <Link to="/post-recipes">Post Recipes</Link>
     </li>
     <li className="logout">
       <Link to="/logout">Logout</Link>

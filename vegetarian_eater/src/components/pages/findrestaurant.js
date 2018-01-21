@@ -1,16 +1,45 @@
-import React from "react";
+import React, { Component } from "react";
 
-const Findres = () =>
-  <div>
-    <h1>Find Restaurants Page</h1>
-    <p>
-      Nunc pharetra finibus est at efficitur. Praesent sed congue diam. Integer
-      gravida dui mauris, ut interdum nunc egestas sed. Aenean sed mollis diam.
-      Nunc aliquet risus ac finibus porta. Nam quis arcu non lectus tincidunt
-      fermentum. Suspendisse aliquet orci porta quam semper imperdiet. Praesent
-      euismod mi justo, faucibus scelerisque risus cursus in. Sed rhoncus mollis
-      diam, sit amet facilisis lectus blandit at.
-    </p>
-  </div>;
+class Login extends Component {
+  // Setting the component's initial state
+  state = {
+    location: "",
+  };
 
-export default Findres;
+
+  handleFormSubmit = event => {
+    // Preventing the default behavior of the form submit (which is to refresh the page)
+    event.preventDefault();
+    if (!this.state.location){
+      alert("Please enter a city and state");
+    } else {
+      alert(`Hello`);
+    }
+
+    this.setState({
+      location: ""
+    });
+  };
+
+  render() {
+    // Notice how each input has a `value`, `name`, and `onChange` prop
+    return (
+      <div>
+        <p>
+          Hello 
+        </p>
+        <form className="form">
+          <input
+            value={this.state.location}
+            name="location"
+            type="text"
+            placeholder="city, state"
+          />
+          <button onClick={this.handleFormSubmit}>Submit</button>
+        </form>
+      </div>
+    );
+  }
+}
+
+export default Login;
