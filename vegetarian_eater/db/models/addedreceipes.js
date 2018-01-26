@@ -22,7 +22,7 @@ instructions: { type: String,
 },
 ingredients: {
     type: Schema.Types.ObjectId,
-    ref: "Comments"
+    ref: "Ingredients"
   }
 });
 
