@@ -1,7 +1,18 @@
 import React from "react";
 
+//added React bulma ui
+import { Button } from 'reactbulma'
+
+
 const Findrec = () =>
   <div>
+    <div>
+      <Button primary>Primary</Button>
+      <Button info>Info</Button>
+      <Button success>Success</Button>
+      <Button warning>Warning</Button>
+      <Button danger>Danger</Button>
+    </div>
     <h1>Find Recipes Page</h1>
     <p>
       Nunc pharetra finibus est at efficitur. Praesent sed congue diam. Integer
