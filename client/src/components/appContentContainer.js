@@ -8,7 +8,7 @@ import Findrec from "./pages/findrecipe";
 import Findres from "./pages/findrestaurant";
 import Postrec from "./pages/postrecipe";
 
-const appContainer = ({match}) =>
+const appContainer = ({match, ...props}) =>
 
     <div>
 
@@ -21,7 +21,7 @@ const appContainer = ({match}) =>
         </Field>
 
         {/* When in the app, default to show the dashboard */}
-        <Route exact path={`${match.url}`} component={Dashboard}/>
+        <Route exact path={`${match.url}`} component={Dashboard} />
 
         {/* defining sub-routes */}
         <Route path={`${match.url}/logout`} component={Logout} />

@@ -1,5 +1,6 @@
 import API from "../../api/API.js"
 import React, { Component } from "react";
+import { Section, Container, Title, SubTitle } from 'reactbulma'
 
 class Findres extends Component {
   // Setting the component's initial state
@@ -45,6 +46,8 @@ handleInputChange = event => {
     // Notice how each input has a `value`, `name`, and `onChange` prop
     return (
       <div>
+
+
         <form className="form">
           <input
             name="location"
@@ -55,6 +58,17 @@ handleInputChange = event => {
           />
           <button onClick={this.handleFormSubmit}>Submit</button>
         </form>
+
+        <Section>
+          <Container>
+            <Title>Section</Title>
+            <SubTitle>
+              A simple container to divide your page into <strong>sections</strong>, like the one you're currently reading
+            </SubTitle>
+          </Container>
+        </Section>
+
+
       </div>
     );
   }
