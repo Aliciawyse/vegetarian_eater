@@ -15,13 +15,13 @@ const zomato = new Zomato(keys.zomato)
 // It accepts a "query" or term to search the recipe api for
 module.exports = function (app){
     
-app.get("/search-city", (req, res) => {
+app.get("/search-city/restaurant", (req, res) => {
 
   console.log(req.query)
     zomato
   .cities({
     q:req.query.query,
-    count: 5  
+    count: 1  
   })
   .then(function(data) {
     console.log(data[0].id);
@@ -30,7 +30,7 @@ app.get("/search-city", (req, res) => {
   .search({
     entity_id: cityid,
     entity_type: 'city',
-    count: 5,
+    count:20,
     cuisines: '308',
     sort: 'rating',
     order: 'desc'
@@ -52,19 +52,22 @@ app.get("/search-city", (req, res) => {
 
 app.get("/search-restaurants", (req, res) => {
 
-  console.log(req.query)
+  console.log(req.query.lat, req.query.lon)
     zomato
   .search({
     q:req.body,
-    count: 5,
-    lat:req.body.geoloc.latitude,
-   lon:req.body.geoloc.longitude,
+    count: 20,
+  lat:req.query.lat,
+   lon:req.query.lon,
+   radius: 32186.9,
    cuisines: 308,
+   sort: 'rating',
+    order: 'desc'
 
     
   })
   .then(function(data) {
-    console.log(data);
+    //console.log(data);
     res.send(data)
   })
   .catch(function(err) {

@@ -50,7 +50,7 @@ searchCurLoc = event => {
     else{
      //console.log(position)
     let geoloc = position.coords
-      console.log(geoloc)
+      //console.log(geoloc)
 
       API.getRestaurants(geoloc)
       .then(res => {

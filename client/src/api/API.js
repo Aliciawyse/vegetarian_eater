@@ -2,20 +2,22 @@ import axios from "axios";
 
 export default {
   getCity: function(query) {
-    //return axios.get("/search-restaurants",query);
+
     return axios({
 	  method: 'get',
-	  url: '/search-city',
+	  url: '/search-city/restaurants',
 	  params: { query: query }
 	});
   },
 
    getRestaurants: function(query) {
-    //return axios.get("/search-restaurants",query);
+   	console.log(query.latitude, query.longitude)
     return axios({
 	  method: 'get',
 	  url: '/search-restaurants',
-	  params: { query: query }
+	  params: { lat: query.latitude,
+	  	lon: query.longitude
+	  }
  	});
   },
 
@@ -34,4 +36,6 @@ export default {
 	}
 
 };
+
+
 
