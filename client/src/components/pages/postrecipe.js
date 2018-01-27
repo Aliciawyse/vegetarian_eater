@@ -46,16 +46,19 @@ handleInputChange = event => {
   handleFormSubmit = event => {
     // Preventing the default behavior of the form submit (which is to refresh the page)
     let post = this.state.title
+    let ingrArr = this.state.ingredients
     event.preventDefault();
     if (!this.state.title){
       alert("Please enter a name for this recipe");
     } else {
-      console.log(post)
+      console.log(post, ingrArr)
 
     this.setState({
     title: "",
     link: "",
-    instructions:""
+    instructions:"",
+    ingredient: '',
+    ingredients: [{ ingredient: '' }],
     });
 
   }
@@ -91,6 +94,7 @@ render() {
             <button type="button" onClick={this.handleRemoveIngredient(idx)}>-</button>
           </div>
         ))}
+        <button type="button" onClick={this.handleAddIngredient}>Add Ingredient</button>
           <input
             name="instructions"
             value={this.state.instructions}
