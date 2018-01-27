@@ -6,9 +6,10 @@ const App = () =>
 
     <Router>
       <div>
+
         <Route exact path="/" component={LandingPage} />
-        <Route path="/home" component={Domroutes}>
-        </Route>
+          <Route path="/home" component={Domroutes}/>
+
       </div>
     </Router>;
 

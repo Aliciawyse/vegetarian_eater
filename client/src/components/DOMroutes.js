@@ -5,81 +5,35 @@ import Logout from "./pages/logout.js";
 import Findrec from "./pages/findrecipe.js";
 import Findres from "./pages/findrestaurant.js";
 import Postrec from "./pages/postrecipe.js";
+import Dashboard from "./pages/dashboard.js";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Nav, Container, Card, Content, } from 'reactbulma'
+import { Level, Button, Item, Left, Right, SubTitle } from 'reactbulma'
+import { Field, Control } from 'reactbulma'
+import { Icon } from 'reactbulma'
 
 
 const appContainer = ({match}) =>
 
     <div>
 
-        <Nav hasShadow>
-            <Container>
-                <Nav.Left>
-                    <Nav.Item>
-                        <p>VEGETARIAN EATER</p>
-                    </Nav.Item>
-                </Nav.Left>
-                <Nav.Toggle />
-            </Container>
-        </Nav>
+        <Field  style={{backgroundColor: "hsl(171, 100%, 41%)",marginBottom: "2%"}} groupedRight>
+            <Control>
+                <Icon large>
+                    <i className="fa fa-user"/>
+                </Icon>
+            </Control>
+        </Field>
 
-        {/* These are sub-routes under the  home route*/}
+        {/* defining sub-routes*/}
             <Route path={`${match.url}/logout`} component={Logout} />
             <Route path={`${match.url}/login`} component={Login} />
             <Route path={`${match.url}/find-recipes`} component={Findrec} />
             <Route path={`${match.url}/find-restaurants`} component={Findres} />
             <Route path={`${match.url}/post-recipes`} component={Postrec} />
 
+        <Route exact path={`${match.url}`} component={Dashboard}/>
 
-        <Container style={{display: "flex", justifyContent: "space-evenly"}}>
-        <Card style={{width:"30%"}} className="restaurantCard">
-
-            <Card.Image src='http://bulma.io/images/placeholders/1280x960.png' square='128by128'  />
-            <Card.Content>
-                <Content>
-                    <Link to={`${match.url}/find-restaurants`}>Find Restaurants</Link>
-                </Content>
-            </Card.Content>
-
-        </Card>
-
-            <Card style={{width:"30%"}} className="restaurantCard">
-
-                <Card.Image src='http://bulma.io/images/placeholders/1280x960.png' square='128by128'  />
-                <Card.Content>
-                    <Content>
-                        <Link to={`${match.url}/find-recipes`}>Find Recipes</Link>
-                    </Content>
-                </Card.Content>
-
-            </Card>
-
-            <Card style={{width:"30%"}} className="restaurantCard">
-
-                <Card.Image src='http://bulma.io/images/placeholders/1280x960.png' square='128by128'  />
-                <Card.Content>
-                    <Content>
-                        <Link to={`${match.url}/post-recipes`}>Post Recipes</Link>
-                    </Content>
-                </Card.Content>
-
-            </Card>
-        </Container>
-
-        <ul className="nav nav-tabs">
-    <li className="home">
-      <Link to={`${match.url}`}>Home</Link>
-    </li>
-    <li className="Login">
-      <Link to={`${match.url}/login`}>Login</Link>
-    </li>
-
-    <li className="logout">
-      <Link to={`${match.url}/logout`}>Logout</Link>
-    </li>
-  </ul>;
-    </div>
+    </div>;
 
 export default appContainer;
