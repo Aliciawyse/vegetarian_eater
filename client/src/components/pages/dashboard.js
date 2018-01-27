@@ -1,12 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Container, Card, Content} from 'reactbulma'
+import { Link, Route } from "react-router-dom";
+import { Container, Card, Content} from 'reactbulma';
+
 
 
 const Dashboard = ({match}) =>
 
     <div>
 
+
+
+        {/* page content */}
         <Container style={{display: "flex", justifyContent: "space-evenly"}}>
             <Card style={{width:"30%"}} className="restaurantCard">
 
