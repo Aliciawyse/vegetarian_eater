@@ -373,6 +373,7 @@
     "function-bind": "^1.1.1",
     "functional-red-black-tree": "^1.0.1",
     "gauge": "^2.7.4",
+    "geolocation": "^0.2.0",
     "get-caller-file": "^1.0.2",
     "get-stdin": "^4.0.1",
     "get-stream": "^3.0.0",
@@ -583,6 +584,7 @@
     "minimatch": "^3.0.4",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
+    "mongoose": "^5.0.1",
     "ms": "^2.0.0",
     "multicast-dns": "^6.2.2",
     "multicast-dns-service-types": "^1.1.0",
@@ -933,7 +935,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "start": "nodemon server.js",
     "prestart": "cd client/ && npm run build",
     "preinstall": "cd client/ && npm install"
   },

@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import API from "../../api/API.js"
+var axios = require("axios");
+
 
 
 class Postrec extends Component {
@@ -45,13 +48,28 @@ handleInputChange = event => {
 
   handleFormSubmit = event => {
     // Preventing the default behavior of the form submit (which is to refresh the page)
-    let post = this.state.title
+    //let post = this.state.title
     let ingrArr = this.state.ingredients
+    let postObj = {
+      title:this.state.title,
+      link:this.state.link,
+      ingr:ingrArr,
+      intr:this.state.instructions
+    }
+
+    console.log(postObj)
+
     event.preventDefault();
     if (!this.state.title){
       alert("Please enter a name for this recipe");
     } else {
-      console.log(post, ingrArr)
+      //console.log(post, ingrArr)
+      API.postRecipes(postObj).then(function(result){
+        console.log(result)
+      }).catch(function(err) {
+      // If an error occurred, send it to the client
+     //console.log(err)
+    });
 
     this.setState({
     title: "",
@@ -63,6 +81,7 @@ handleInputChange = event => {
 
   }
   };
+
 
 render() {
   return (
