@@ -22,7 +22,12 @@ export default {
   },
 
   getRecipes: function(query) {
-    return axios.get("/search-recipes", query);
+    //return axios.get("/search-recipes", query);
+    return axios({
+	  method: 'get',
+	  url: '/search-recipes',
+	  params: query 
+	   	});
   },
 
  postRecipes: function(query){
