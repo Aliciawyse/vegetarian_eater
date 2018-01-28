@@ -9,7 +9,6 @@ const Dashboard = ({match}) =>
     <div>
 
 
-
         {/* page content */}
         <Container style={{display: "flex", justifyContent: "space-evenly"}}>
             <Card style={{width:"30%"}} className="restaurantCard">
@@ -25,7 +24,7 @@ const Dashboard = ({match}) =>
 
             <Card style={{width:"30%"}} className="restaurantCard">
 
-                <Card.Image src='https://www.superhealthykids.com/wp-content/uploads/2008/10/refried-beans-24-768x1152.jpg' square='128by128'  />
+                <Card.Image src='https://www.superhealthykids.com/wp-content/uploads/2017/03/Instant-Pot-Risotto-19-768x1152.jpg' square='128by128'  />
                 <Card.Content>
                     <Content>
                         <Link to={`${match.url}/find-recipes`}>Find Recipes</Link>
@@ -36,7 +35,7 @@ const Dashboard = ({match}) =>
 
             <Card style={{width:"30%"}} className="restaurantCard">
 
-                <Card.Image src='https://www.superhealthykids.com/wp-content/uploads/2016/09/stuffedpeppers-8-768x1152.jpg' square='128by128'  />
+                <Card.Image src='https://www.superhealthykids.com/wp-content/uploads/2016/09/butternutsquashsoup-4-768x1152.jpg' square='128by128'  />
                 <Card.Content>
                     <Content>
                         <Link to={`${match.url}/post-recipes`}>Post Recipes</Link>
