@@ -1,7 +1,7 @@
 import API from "../../api/API.js"
 import React, { Component } from "react";
 import geolocation from 'geolocation'
- 
+import { Section, Container, Title, SubTitle } from 'reactbulma'
 
 
 class Findres extends Component {
@@ -69,6 +69,8 @@ searchCurLoc = event => {
     // Notice how each input has a `value`, `name`, and `onChange` prop
     return (
       <div>
+
+
         <form className="form">
           <input
             name="location"
@@ -79,8 +81,18 @@ searchCurLoc = event => {
           />
           <button onClick={this.handleFormSubmit}>Submit</button>
         </form>
+
         <p>OR</p>
         <button onClick={this.searchCurLoc}>Search Current Location</button>
+
+        <Section>
+          <Container>
+            <Title>Section</Title>
+            <SubTitle>
+              A simple container to divide your page into <strong>sections</strong>, like the one you're currently reading
+            </SubTitle>
+          </Container>
+        </Section>
       </div>
     );
   }
