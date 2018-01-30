@@ -4,7 +4,7 @@ import $ from "jquery";
 import * as firebase from "firebase";
 
 //bulma ui
-import { Section, Container, Title, SubTitle, Input, Button } from 'reactbulma'
+import { Section, Container, Title, SubTitle, Input, Button, Card, Box, Hero} from 'reactbulma'
 
 
 class LandingPage extends React.Component {
@@ -14,34 +14,54 @@ class LandingPage extends React.Component {
 
         return (
 
-            <div>
-                <Section>
-                    <Container>
-                        <Title>Sign up!</Title>
-                        <SubTitle>
-                            A faster route to the best <strong>vegetarian food</strong>.
-                        </SubTitle>
-                    </Container>
+            <div style={{display:"flex", height:"100%"}}>
+
+                <Section style={{height:"100vh", width:"50%", backgroundImage:"url(https://shk-images.s3.amazonaws.com/wp-content/uploads/2014/09/SHK-Veggie-Stuffed-Chow-Mein-4.jpg)", backgroundPosition:"center", backgroundRepeat:"None", backgroundSize:"cover", position:"relative"}}>
+
+                    {/*<Card>*/}
+                        {/*<Card.Image src='http://bulma.io/images/placeholders/1280x960.png' square='4by3' />*/}
+                    {/*</Card>*/}
+
+                    <Hero style={{position:"absolute", bottom:"40%", background:"rgba(255,255,255,0.9)", width:"75%"}}>
+                        <Hero.Body >
+                            <Container >
+                            <Title >
+                                Vegetarian eater
+                            </Title>
+                            <SubTitle>
+                                A faster route to the best vegetarian food.
+                            </SubTitle>
+                            </Container>
+                        </Hero.Body>
+                    </Hero>
+
                 </Section>
-                <Section>
-                    <form onSubmit={this.handleSubmit}>
-                    <Container>
+
+                <Section style={{width:"50%"}}>
+
+                    <Container style={{width:"65%",bottom:"-30%", textAlign:"center"}}>
+                        <form  onSubmit={this.handleSubmit}>
+
                         <div>
-                            <label htmlFor="medium">Enter email to create account</label>
-                            <Input medium id="userEmail"/>
+                            <h2>Enter email and password to create an account</h2>
+                            <Input style={{marginTop:"2%", marginBottom:"2%"}} warning medium id="userEmail" placeholder="email address"/>
                         </div>
                         <div>
-                            <label htmlFor="medium">Enter password</label>
-                            <Input medium id="userPassword"/>
+
+                            <Input style={{marginBottom:"2%"}} warning medium id="userPassword" placeholder="password"/>
                         </div>
+                            <div>
+                                {/*<Button primary><Link to="/home">Next</Link></Button>*/}
+                                <Button  type="submit" primary>Next</Button>
+                            </div>
+
+                        </form>
+
                     </Container>
                     <Container>
-                        <div>
-                            {/*<Button primary><Link to="/home">Next</Link></Button>*/}
-                            <Button type="submit" primary>Next</Button>
-                        </div>
+
                     </Container>
-                    </form>
+
                 </Section>
             </div>
 

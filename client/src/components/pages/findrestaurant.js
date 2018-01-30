@@ -1,6 +1,6 @@
 import API from "../../api/API.js"
 import React, { Component } from "react";
-import { Section, Container, Title, SubTitle } from 'reactbulma'
+import { Section, Container, Title, SubTitle, Input, Button} from 'reactbulma'
 
 class Findres extends Component {
   // Setting the component's initial state
@@ -48,24 +48,50 @@ handleInputChange = event => {
       <div>
 
 
-        <form className="form">
-          <input
-            name="location"
-            value={this.state.location}
-            type="text"
-            onChange={this.handleInputChange}
-            placeholder="city, state"
-          />
-          <button onClick={this.handleFormSubmit}>Submit</button>
-        </form>
+        {/*<form className="form">*/}
+          {/*<input*/}
+            {/*name="location"*/}
+            {/*value={this.state.location}*/}
+            {/*type="text"*/}
+            {/*onChange={this.handleInputChange}*/}
+            {/*placeholder="city, state"*/}
+          {/*/>*/}
+          {/*<button onClick={this.handleFormSubmit}>Submit</button>*/}
+        {/*</form>*/}
 
         <Section>
+
           <Container>
-            <Title>Section</Title>
+            <Title>Find Restuarants</Title>
             <SubTitle>
-              A simple container to divide your page into <strong>sections</strong>, like the one you're currently reading
+              A simple way to find restaurants that serve <strong>vegetarian</strong> meals that you love.
             </SubTitle>
           </Container>
+
+          <Container>
+
+          <form className="form" style={{marginTop:"2%"}}>
+
+            <Input
+                primary
+                large id="large"
+                name="location"
+                value={this.state.location}
+                type="text"
+                onChange={this.handleInputChange}
+                placeholder="City, State"
+            />
+
+            <Button primary onClick={this.handleFormSubmit}>Submit</Button>
+
+
+
+
+          </form>
+
+          </Container>
+
+
         </Section>
 
 

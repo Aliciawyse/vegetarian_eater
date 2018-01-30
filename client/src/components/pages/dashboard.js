@@ -75,9 +75,6 @@ const Dashboard = ({match}) =>
 
             </Card>
 
-
-
-
         </Section>
 
         <ul className="nav nav-tabs">
