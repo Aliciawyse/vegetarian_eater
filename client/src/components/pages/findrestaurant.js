@@ -1,6 +1,6 @@
 import API from "../../api/API.js"
 import React, { Component } from "react";
-import { Section, Container, Title, SubTitle, Input, Button} from 'reactbulma'
+import { Section, Container, Title, SubTitle, Input, Button, Hero} from 'reactbulma'
 
 class Findres extends Component {
   // Setting the component's initial state
@@ -60,19 +60,17 @@ handleInputChange = event => {
         {/*</form>*/}
 
         <Section>
+<Hero>
+  <Hero.Body>
+    <Container>
 
-          <Container>
-            <Title>Find Restuarants</Title>
-            <SubTitle>
-              A simple way to find restaurants that serve <strong>vegetarian</strong> meals that you love.
-            </SubTitle>
-          </Container>
+      <Title>Find Restuarants</Title>
 
-          <Container>
+      <SubTitle>A simple way to find restaurants that serve <strong>vegetarian</strong> meals that you love.</SubTitle>
 
-          <form className="form" style={{marginTop:"2%"}}>
+      <form className="form" style={{marginTop:"2%"}}>
 
-            <Input
+        <Input
                 primary
                 large id="large"
                 name="location"
@@ -82,14 +80,20 @@ handleInputChange = event => {
                 placeholder="City, State"
             />
 
-            <Button primary onClick={this.handleFormSubmit}>Submit</Button>
+        <Button primary>Tofu</Button>
+        <Button info>Soup</Button>
+        <Button success>Sandwiches</Button>
+        <Button warning>Noodles</Button>
+        <Button danger>Quinoa</Button>
+        <br></br>
 
+        <Button style={{marginTop:"1.3%"}} primary onClick={this.handleFormSubmit}>Search!</Button>
 
+      </form>
 
-
-          </form>
-
-          </Container>
+    </Container>
+  </Hero.Body>
+</Hero>
 
 
         </Section>
