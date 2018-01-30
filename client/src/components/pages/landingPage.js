@@ -18,13 +18,9 @@ class LandingPage extends React.Component {
 
                 <Section style={{height:"100vh", width:"50%", backgroundImage:"url(https://shk-images.s3.amazonaws.com/wp-content/uploads/2014/09/SHK-Veggie-Stuffed-Chow-Mein-4.jpg)", backgroundPosition:"center", backgroundRepeat:"None", backgroundSize:"cover", position:"relative"}}>
 
-                    {/*<Card>*/}
-                        {/*<Card.Image src='http://bulma.io/images/placeholders/1280x960.png' square='4by3' />*/}
-                    {/*</Card>*/}
-
                     <Hero style={{position:"absolute", bottom:"40%", background:"rgba(255,255,255,0.9)", width:"75%"}}>
                         <Hero.Body >
-                            <Container >
+                            <Container style={{width:"100%", textAlign:"center"}}>
                             <Title >
                                 Vegetarian eater
                             </Title>
@@ -56,9 +52,6 @@ class LandingPage extends React.Component {
                             </div>
 
                         </form>
-
-                    </Container>
-                    <Container>
 
                     </Container>
 

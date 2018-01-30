@@ -2,13 +2,16 @@ import React from "react";
 import Dashboard from "./pages/dashboard.js";
 import { Route } from "react-router-dom";
 import { Level, SubTitle, Icon } from 'reactbulma'
-import Logout from "./pages/logout.js";
+import Logout from "./pages/profile.js";
 import Login from "./pages/login";
 import Findrec from "./pages/findrecipe";
 import Findres from "./pages/findrestaurant";
 import Postrec from "./pages/postrecipe";
 
 import 'font-awesome/css/font-awesome.min.css';
+
+
+
 
 const appContainer = ({match, ...props}) =>
 
@@ -23,7 +26,7 @@ const appContainer = ({match, ...props}) =>
                 </Level.Item>
             </Level.Left>
             <Level.Right>
-                <Level.Item><Icon><i style={{fontSize: "28px"}} className="fa fa-user fa-3"/></Icon></Level.Item>
+                <Level.Item><Icon><i  style={{fontSize: "28px"}} className="fa fa-user fa-3"/></Icon></Level.Item>
             </Level.Right>
         </Level>
 

@@ -8,7 +8,6 @@ const Dashboard = ({match}) =>
 
     <div>
 
-
         {/* page content */}
         <Container style={{display: "flex", justifyContent: "space-evenly"}}>
             <Card style={{width:"30%"}} className="restaurantCard">
