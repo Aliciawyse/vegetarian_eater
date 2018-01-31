@@ -24,13 +24,13 @@ handleInputChange = event => {
 
   handleFormSubmit = event => {
     // Preventing the default behavior of the form submit (which is to refresh the page)
-    let query = this.state.search
+    let search = this.state.search
     event.preventDefault();
     if (!this.state.search){
-      alert("Please enter a city and state");
+      alert("Please enter a keyword");
     } else {
-      console.log(query)
-     API.getRecipes(query)
+      console.log(search)
+     API.getRecipes(search)
       .then(res => {
         console.log(res)
         this.setState({ results: res.data })
@@ -74,7 +74,7 @@ handleInputChange = event => {
                                   value={this.state.search}
                                   type="text"
                                   onChange={this.handleInputChange}
-                                  placeholder="City, State"
+                                  placeholder="Search recipes"
                               />
 
                               <Button style={{marginTop:"1.3%"}} primary onClick={this.handleFormSubmit}>Search!</Button>

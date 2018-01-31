@@ -25,7 +25,7 @@ class LandingPage extends React.Component {
                                 Vegetarian eater
                             </Title>
                             <SubTitle>
-                                A faster route to the best vegetarian food.
+                                A Faster route to the best vegetarian food.
                             </SubTitle>
                             </Container>
                         </Hero.Body>

@@ -2,15 +2,20 @@ import React from "react";
 import { Link, Route } from "react-router-dom";
 import { Container, Card, Content, Section, Image, Title, SubTitle} from 'reactbulma';
 
-
+//A better way to add style for cleaner code.
+const containerStyle = {
+    display:"flex",
+    justifyContent:"space-evenly"
+};
 
 const Dashboard = ({match}) =>
 
     <div>
 
         {/* page content */}
-        <Container style={{display: "flex", justifyContent: "space-evenly"}}>
+        <Container style={containerStyle}>
             <Card style={{width:"30%"}} className="restaurantCard">
+
 
                 <Card.Image src='https://i.pinimg.com/564x/dd/e9/07/dde9074f2c35ca171766d307b542823e.jpg' square='128by128'  />
                 <Card.Content>
@@ -76,18 +81,18 @@ const Dashboard = ({match}) =>
 
         </Section>
 
-        <ul className="nav nav-tabs">
-            <li className="home">
-                <Link to={`${match.url}`}>Home</Link>
-            </li>
-            <li className="Login">
-                <Link to={`${match.url}/login`}>Login</Link>
-            </li>
+        {/*<ul className="nav nav-tabs">*/}
+            {/*<li className="home">*/}
+                {/*<Link to={`${match.url}`}>Home</Link>*/}
+            {/*</li>*/}
+            {/*<li className="Login">*/}
+                {/*<Link to={`${match.url}/login`}>Login</Link>*/}
+            {/*</li>*/}
 
-            <li className="logout">
-                <Link to={`${match.url}/logout`}>Logout</Link>
-            </li>
-        </ul>;
+            {/*<li className="logout">*/}
+                {/*<Link to={`${match.url}/logout`}>Logout</Link>*/}
+            {/*</li>*/}
+        {/*</ul>;*/}
     </div>;
 
 export default Dashboard;

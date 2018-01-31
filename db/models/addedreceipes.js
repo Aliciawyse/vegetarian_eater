@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 
 // Using the Schema constructor, create a new NoteSchema object
 // This is similar to a Sequelize model
-var Recipes = new Schema({
+var RecipeSchema = new Schema({
 
   // `title` must be of type String
   title: { type: String,
@@ -17,13 +17,13 @@ var Recipes = new Schema({
   link: { type: String,
   required: false
 },
+ingredients: [{
+    type: Schema.Types.ObjectId,
+  ref: "Ingredients"
+  }],
 instructions: { type: String,
   required: false
-},
-ingredients: {
-    type: String,
-  required: false
-  }
+}
 });
 
 // This creates our model from the above schema, using mongoose's model method
@@ -32,4 +32,4 @@ var Recipes = mongoose.model("Recipes", RecipeSchema);
 // Export the Note model
 module.exports =  Recipes
 
- 
+

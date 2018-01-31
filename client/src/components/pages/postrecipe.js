@@ -1,16 +1,37 @@
 import React, { Component } from "react";
-
-import { Input, Container } from 'reactbulma';
+import API from "../../api/API.js"
+var axios = require("axios");
 
 class Postrec extends Component {
   // Setting the component's initial state
   state = {
     title: "",
     link: "",
-    ingredients: "",
-    instructions:""
+    instructions:"",
+      ingredient: '',
+      ingredients: [{ ingredient: '' }],
   };
 
+ handleIngredientNameChange = (idx) => (evt) => {
+    const newingredients = this.state.ingredients.map((Ingredient, sidx) => {
+      if (idx !== sidx) return Ingredient;
+      return { ...Ingredient, ingredient: evt.target.value };
+    });
+
+    this.setState({ ingredients: newingredients });
+  }
+
+  handleAddIngredient = () => {
+    this.setState({
+      ingredients: this.state.ingredients.concat([{ ingredient: '' }])
+    });
+  }
+
+  handleRemoveIngredient = (idx) => () => {
+    this.setState({
+      ingredients: this.state.ingredients.filter((s, sidx) => idx !== sidx)
+    });
+  }
 
 handleInputChange = event => {
     // Getting the value and name of the input which triggered the change
@@ -25,18 +46,35 @@ handleInputChange = event => {
 
   handleFormSubmit = event => {
     // Preventing the default behavior of the form submit (which is to refresh the page)
-    let query = this.state.name
+    //let post = this.state.title
+    let ingrArr = this.state.ingredients
+    let postObj = {
+      title:this.state.title,
+      link:this.state.link,
+      ingr:ingrArr,
+      intr:this.state.instructions
+    }
+
+    console.log(postObj)
+
     event.preventDefault();
-    if (!this.state.name){
+    if (!this.state.title){
       alert("Please enter a name for this recipe");
     } else {
-      console.log(query)
+      //console.log(post, ingrArr)
+      API.postRecipes(postObj).then(function(result){
+        console.log(result)
+      }).catch(function(err) {
+      // If an error occurred, send it to the client
+     //console.log(err)
+    });
 
     this.setState({
     title: "",
     link: "",
-    ingredients: "",
-    instructions:""
+    instructions:"",
+    ingredient: '',
+    ingredients: [{ ingredient: '' }],
     });
 
   }
@@ -45,82 +83,43 @@ handleInputChange = event => {
 render() {
   return (
   <div>
-
-
-      <Container>
-          <h1 style={{fontSize:"200%"}}>Post Recipes Page</h1>
-
-          <form className="form">
-
-        <label htmlFor="small">Name of recipe</label>
-        <Input
-            small
-            id="small"
+    <h1>Post Recipes Page</h1>
+    <form className="form">
+          <input
             name="title"
             value={this.state.title}
             type="text"
             onChange={this.handleInputChange}
-
-        />
-
-        <label htmlFor="normal">Link to recipe</label>
-        <Input
-            id="normal"
+            placeholder="name of recipe"
+          />
+          <input
             name="link"
             value={this.state.link}
             type="text"
             onChange={this.handleInputChange}
-        />
-
-        <label htmlFor="medium">Enter ingredients</label>
-        <Input medium
-               id="medium"
-               name="ingredients"
-               value={this.state.ingredients}
-               type="text"
-               onChange={this.handleInputChange}
-        />
-
-        <label htmlFor="large">Enter instructions</label>
-        <Input large
-               id="large"
-               name="instructions"
-               value={this.state.instructions}
-               type="text"
-               onChange={this.handleInputChange}
-        />
-
-          {/*<input*/}
-            {/*name="title"*/}
-            {/*value={this.state.title}*/}
-            {/*type="text"*/}
-            {/*onChange={this.handleInputChange}*/}
-            {/*placeholder="name of recipe"*/}
-          {/*/>*/}
-          {/*<input*/}
-            {/*name="link"*/}
-            {/*value={this.state.link}*/}
-            {/*type="text"*/}
-            {/*onChange={this.handleInputChange}*/}
-            {/*placeholder="link to recipe"*/}
-          {/*/>*/}
-          {/*<input*/}
-            {/*name="ingredients"*/}
-            {/*value={this.state.ingredients}*/}
-            {/*type="text"*/}
-            {/*onChange={this.handleInputChange}*/}
-            {/*placeholder="Enter Ingredients"*/}
-          {/*/>*/}
-          {/*<input*/}
-            {/*name="instructions"*/}
-            {/*value={this.state.instructions}*/}
-            {/*type="text"*/}
-            {/*onChange={this.handleInputChange}*/}
-            {/*placeholder="Enter Instructions"*/}
-          {/*/>*/}
+            placeholder="link to recipe"
+          />
+          {this.state.ingredients.map((Ingredient, idx) => (
+          <div>
+            <input
+              type="text"
+              placeholder={`Ingredient #${idx + 1}`}
+              value={Ingredient.ingredient}
+              onChange={this.handleIngredientNameChange(idx)}
+            />
+            <button type="button" onClick={this.handleRemoveIngredient(idx)}>-</button>
+          </div>
+        ))}
+        <button type="button" onClick={this.handleAddIngredient}>Add Ingredient</button>
+          <input
+            name="instructions"
+            value={this.state.instructions}
+            type="text"
+            onChange={this.handleInputChange}
+            placeholder="Enter Instructions"
+          />
           <button onClick={this.handleFormSubmit}>Submit</button>
         </form>
-      </Container>
   </div>
   )
 }
