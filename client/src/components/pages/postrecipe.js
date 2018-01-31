@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import API from "../../api/API.js"
 var axios = require("axios");
 
-
-
 class Postrec extends Component {
   // Setting the component's initial state
   state = {
@@ -81,7 +79,6 @@ handleInputChange = event => {
 
   }
   };
-
 
 render() {
   return (

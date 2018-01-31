@@ -1,5 +1,7 @@
 import API from "../../api/API.js"
 import React, { Component } from "react";
+import { Section, Container, Title, SubTitle, Input, Button, Hero} from 'reactbulma'
+
 
 class Findrec extends Component {
   // Setting the component's initial state
@@ -45,16 +47,50 @@ handleInputChange = event => {
     // Notice how each input has a `value`, `name`, and `onChange` prop
     return (
       <div>
-        <form className="form">
-          <input
-            name="search"
-            value={this.state.search}
-            type="text"
-            onChange={this.handleInputChange}
-            placeholder="search recipes"
-          />
-          <button onClick={this.handleFormSubmit}>Submit</button>
-        </form>
+        {/*<form className="form">*/}
+          {/*<input*/}
+            {/*name="search"*/}
+            {/*value={this.state.search}*/}
+            {/*type="text"*/}
+            {/*onChange={this.handleInputChange}*/}
+            {/*placeholder="city, state"*/}
+          {/*/>*/}
+          {/*<button onClick={this.handleFormSubmit}>Submit</button>*/}
+        {/*</form>*/}
+
+          <Section>
+              <Hero>
+                  <Hero.Body>
+                      <Container>
+
+                          <Title>Find Recipes</Title>
+
+                          <SubTitle>A simple way to find <strong>recipes</strong>.</SubTitle>
+
+                          <form className="form" style={{marginTop:"2%"}}>
+
+                              <Input
+                                  name="search"
+                                  value={this.state.search}
+                                  type="text"
+                                  onChange={this.handleInputChange}
+                                  placeholder="Search recipes"
+                              />
+
+                              <Button style={{marginTop:"1.3%"}} primary onClick={this.handleFormSubmit}>Search!</Button>
+
+                          </form>
+
+                      </Container>
+                  </Hero.Body>
+              </Hero>
+
+
+          </Section>
+
+
+
+
       </div>
     );
   }

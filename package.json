@@ -941,10 +941,10 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "client": "cd client/ && yarn start",
-    "start": "nodemon server.js",
-    "prestart": "cd client/ && npm run build",
-    "preinstall": "cd client/ && npm install"
+    "client": "(cd client && yarn start)",
+    "start": "node server.js",
+    "dev": "concurrently \"nodemon server.js\" \"yarn run client\"",
+    "preinstall": "(cd client && yarn install && yarn run build)"
   },
   "keywords": [],
   "author": "",

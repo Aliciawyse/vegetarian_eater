@@ -11,7 +11,7 @@ const App = () =>
     <Router>
       <div>
 
-        <Route exact path="/" component={LandingPage} />
+          <Route exact path="/" component={LandingPage} />
           <Route path="/home" component={Domroutes}/>
 
       </div>
