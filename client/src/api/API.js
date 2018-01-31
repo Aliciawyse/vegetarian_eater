@@ -1,4 +1,4 @@
-import axios from "axios";
+ import axios from "axios";
 
 export default {
   getCity: function(query) {
@@ -38,9 +38,27 @@ export default {
 	  data: query
 	});
 
+	},
+
+
+	postMongoUser: function(query){
+  	
+	 return axios({
+	  method: 'post',
+	  url: '/posting-user',
+	  data: query
+	});
+
+	},
+
+postResSearch: function(query){
+  	
+	 return axios({
+	  method: 'post',
+	  url: '/posting-ressearch',
+	  data: query
+	});
+
 	}
-
 };
-
-
 

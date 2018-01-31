@@ -34,7 +34,6 @@ handleInputChange = event => {
       API.getCity(query)
       .then(res => {
         console.log(res)
-        this.setState({ results: res.data })
       })
       .catch(err => console.log(err));
     }
@@ -55,7 +54,9 @@ searchCurLoc = event => {
       API.getRestaurants(geoloc)
       .then(res => {
         console.log(res)
-        this.setState({ results: res.data })
+        API.postResSearch(res).then(res => {
+          console.log(res)
+        })
       })
       .catch(err => console.log(err));
 }

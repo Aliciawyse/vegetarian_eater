@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 // Use apiRoutes
 require("./api/routes/restaurantsAPI.js")(app)
-require("./db/routes/saverecipe.js")(app)
+require("./db/routes/dbroutes.js")(app)
 require("./api/routes/recipesAPI.js")(app)
 
 
@@ -29,7 +29,7 @@ app.get("*", function(req, res) {
 });
 
 app.listen(PORT, function() {
-  console.log(`🌎 ==> Server now on port ${PORT}!`);
+  console.log(`🌎😝😎😰🤯🤫 ==> Server now on port ${PORT}!`);
 });
 
 

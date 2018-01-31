@@ -67,8 +67,8 @@ app.get("/search-restaurants", (req, res) => {
     
   })
   .then(function(data) {
-    //console.log(data);
-    res.send(data)
+    //console.log(data.restaurants);
+    res.send(data.restaurants)
   })
   .catch(function(err) {
     console.error(err);

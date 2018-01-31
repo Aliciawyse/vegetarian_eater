@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom'
 import $ from "jquery";
+import API from "../../api/API.js"
 import * as firebase from "firebase";
 
 //bulma ui
@@ -58,12 +59,27 @@ class LandingPage extends React.Component {
         const userEmail = $("#userEmail").val().trim();
         const userPassword = $("#userPassword").val().trim();
         const push = this.props.history.push;
+        const mongoUsers = [];
 
         firebase.auth().createUserWithEmailAndPassword(userEmail, userPassword)
             .then(function(user) {
                 console.log("User created!!!");
                 if (user) {
                     console.log("User has successfully signed in!!!" + JSON.stringify(user));
+                    console.log(user.uid, user.email)
+                    mongoUsers.push({
+                    id: user.uid, 
+                    email: user.email
+                    })
+                    console.log(mongoUsers)
+                    localStorage.setItem('id', user.uid )
+
+
+                     API.postMongoUser(mongoUsers)
+                        .then(res => {
+                        console.log(res)
+                        }).catch(err => console.log(err))
+
                     push('/home', { user: 'Kendrick'}); // 2nd parameter is the state
                 } else {
                     console.log("No user signed in...");
