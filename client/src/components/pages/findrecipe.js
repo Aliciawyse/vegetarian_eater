@@ -1,6 +1,6 @@
 import API from "../../api/API.js"
 import React, { Component } from "react";
-import { Section, Container, Title, SubTitle, Input, Button, Hero} from 'reactbulma'
+import { Section, Container, Title, SubTitle, Input, Button, Hero, Card, Content} from 'reactbulma'
 
 
 class Findrec extends Component {
@@ -87,6 +87,30 @@ handleInputChange = event => {
 
 
           </Section>
+
+          <Hero warning>
+              <Container style={{textAlign:"center"}}>
+
+                  {this.state.results.map(recipe => {
+                      return (
+                          //for each restaurant data object make a ui compoment
+
+                          <div style={{display:"inline-block", width:"20%", margin:"3%" }}>
+                              <Card>
+                                  <Card.Image src={recipe.recipe.image} square='4by3' />
+                                  <Card.Header>
+                                      <Card.Header.Title>
+                                          {recipe.recipe.label}
+                                      </Card.Header.Title>
+                                  </Card.Header>
+
+                              </Card>
+                          </div>
+
+                      )
+                  })}
+              </Container>
+          </Hero>
 
 
 
