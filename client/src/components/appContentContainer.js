@@ -38,6 +38,7 @@ class appContainer extends React.Component {
                 {/* When in the app, default to show the dashboard */}
                 <Route exact path={`${match.url}`} component={Dashboard} />
 
+
                 {/* defining sub-routes */}
                 <Route path={`${match.url}/logout`} component={Logout} />
                 <Route path={`${match.url}/login`} component={Login} />

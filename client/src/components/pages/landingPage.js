@@ -1,11 +1,10 @@
 import React from "react";
-import { Link } from 'react-router-dom'
 import $ from "jquery";
 import API from "../../api/API.js"
 import * as firebase from "firebase";
 
 //bulma ui
-import { Section, Container, Title, SubTitle, Input, Button, Card, Box, Hero} from 'reactbulma'
+import { Section, Container, Title, SubTitle, Input, Button, Hero} from 'reactbulma'
 
 
 class LandingPage extends React.Component {
@@ -48,7 +47,6 @@ class LandingPage extends React.Component {
                             <Input style={{marginBottom:"2%"}} warning medium id="userPassword" placeholder="password"/>
                         </div>
                             <div>
-                                {/*<Button primary><Link to="/home">Next</Link></Button>*/}
                                 <Button  type="submit" primary>Next</Button>
                             </div>
 

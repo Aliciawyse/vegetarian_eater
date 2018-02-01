@@ -1,12 +1,18 @@
 import React from "react";
 import {Card, Content, Container} from 'reactbulma'
 
+const leftPanelStyle = {
+    marginBottom: "1.5%",
+    display:"flex",
+    flexWrap:"wrap",
+    justifyContent:"center"
+};
 
 class Profile extends React.Component {
 
     render() {
         return (
-            <div style={{display:"flex", flexWrap:"wrap", justifyContent:"center"}}>
+            <div style={leftPanelStyle}>
 
                 {/*left panel*/}
                 <Container style={{display:"flex", flexDirection:"column", width:"30%"}} >
