@@ -33,31 +33,32 @@ class LandingPage extends React.Component {
 
                 </Section>
 
-                <Section style={{width:"50%"}}>
+                <Section style={{width:"55%"}}>
 
-                    <Container style={{width:"65%",bottom:"-30%", textAlign:"center"}}>
+                    <Container style={{width:"70%",bottom:"-30%", textAlign:"center"}}>
                         <form  onSubmit={this.handleSubmit}>
 
-                        <div>
-                            <h2>Enter email and password to create an account</h2>
+                            <div>
+                                <h2>Enter your name, email & password to create an account</h2>
+                                <Input style={{marginBottom:"2%"}} warning medium id="userName" placeholder="name"/>
+                            </div>
+
+                            <div>
                             <Input style={{marginTop:"2%", marginBottom:"2%"}} warning medium id="userEmail" placeholder="email address"/>
-                        </div>
-                        <div>
+                            </div>
+
+                            <div>
 
                             <Input style={{marginBottom:"2%"}} warning medium id="userPassword" placeholder="password"/>
-                        </div>
+                            </div>
                             <div>
                                 <Button  type="submit" primary>Next</Button>
                             </div>
 
                         </form>
-
                     </Container>
-
                 </Section>
             </div>
-
-
         )
     }
 
@@ -69,6 +70,7 @@ class LandingPage extends React.Component {
         //On click of submit button, grab user data and push to firebase.
         const userEmail = $("#userEmail").val().trim();
         const userPassword = $("#userPassword").val().trim();
+        //const userName = $("#userName").val().trim();
         const push = this.props.history.push;
         const mongoUsers = [];
 

@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import API from "../../api/API.js"
+import { Section, Input, Button, Title} from 'reactbulma';
+
 var axios = require("axios");
+
+const inputSpacing = {
+    margin: "1%",
+    marginLeft: "0"
+};
 
 class Postrec extends Component {
   // Setting the component's initial state
@@ -83,43 +90,98 @@ handleInputChange = event => {
 render() {
   return (
   <div>
-    <h1>Post Recipes Page</h1>
-    <form className="form">
-          <input
-            name="title"
-            value={this.state.title}
-            type="text"
-            onChange={this.handleInputChange}
-            placeholder="name of recipe"
-          />
-          <input
-            name="link"
-            value={this.state.link}
-            type="text"
-            onChange={this.handleInputChange}
-            placeholder="link to recipe"
-          />
-          {this.state.ingredients.map((Ingredient, idx) => (
+      <Section style={{width:"70%", margin:"0 auto"}}>
           <div>
-            <input
-              type="text"
-              placeholder={`Ingredient #${idx + 1}`}
-              value={Ingredient.ingredient}
-              onChange={this.handleIngredientNameChange(idx)}
-            />
-            <button type="button" onClick={this.handleRemoveIngredient(idx)}>-</button>
+              <div style={{marginBottom:"2%"}}>
+                  <Title>Post recipes page</Title>
+              </div>
+
+              <form className="form">
+
+                  <label htmlFor="normal">Name of recipe</label>
+                  <Input
+                      style={inputSpacing}
+                      id="normal"
+                      name="title"
+                      value={this.state.title}
+                      type="text"
+                      onChange={this.handleInputChange}
+                  />
+
+                  <label htmlFor="normal">Link to recipe</label>
+                  <Input
+                      style={inputSpacing}
+                      medium id="medium"
+                      name="link"
+                      value={this.state.link}
+                      type="text"
+                      onChange={this.handleInputChange}
+                  />
+
+                  {this.state.ingredients.map((Ingredient, idx) => (
+                      <div>
+                          <Input
+                              style={{width:"50%", margin:"1%", marginLeft:"0"}}
+                              type="text"
+                              placeholder={`Ingredient #${idx + 1}`}
+                              value={Ingredient.ingredient}
+                              onChange={this.handleIngredientNameChange(idx)}
+                          />
+                          <Button style={inputSpacing} type="button" onClick={this.handleRemoveIngredient(idx)}>-</Button>
+                      </div>
+                  ))}
+                  <Button style={inputSpacing} type="button" onClick={this.handleAddIngredient}>Add Ingredient</Button>
+                  <Input
+                      style={inputSpacing}
+                      name="instructions"
+                      value={this.state.instructions}
+                      type="text"
+                      onChange={this.handleInputChange}
+                      placeholder="Enter Instructions"
+                  />
+                  <Button onClick={this.handleFormSubmit}>Submit</Button>
+
+              </form>
           </div>
-        ))}
-        <button type="button" onClick={this.handleAddIngredient}>Add Ingredient</button>
-          <input
-            name="instructions"
-            value={this.state.instructions}
-            type="text"
-            onChange={this.handleInputChange}
-            placeholder="Enter Instructions"
-          />
-          <button onClick={this.handleFormSubmit}>Submit</button>
-        </form>
+      </Section>
+
+    {/*<h1>Post Recipes Page</h1>*/}
+    {/*<form className="form">*/}
+          {/*<input*/}
+            {/*name="title"*/}
+            {/*value={this.state.title}*/}
+            {/*type="text"*/}
+            {/*onChange={this.handleInputChange}*/}
+            {/*placeholder="name of recipe"*/}
+          {/*/>*/}
+          {/*<input*/}
+            {/*name="link"*/}
+            {/*value={this.state.link}*/}
+            {/*type="text"*/}
+            {/*onChange={this.handleInputChange}*/}
+            {/*placeholder="link to recipe"*/}
+          {/*/>*/}
+          {/*{this.state.ingredients.map((Ingredient, idx) => (*/}
+          {/*<div>*/}
+            {/*<input*/}
+              {/*type="text"*/}
+              {/*placeholder={`Ingredient #${idx + 1}`}*/}
+              {/*value={Ingredient.ingredient}*/}
+              {/*onChange={this.handleIngredientNameChange(idx)}*/}
+            {/*/>*/}
+            {/*<button type="button" onClick={this.handleRemoveIngredient(idx)}>-</button>*/}
+          {/*</div>*/}
+        {/*))}*/}
+        {/*<button type="button" onClick={this.handleAddIngredient}>Add Ingredient</button>*/}
+          {/*<input*/}
+            {/*name="instructions"*/}
+            {/*value={this.state.instructions}*/}
+            {/*type="text"*/}
+            {/*onChange={this.handleInputChange}*/}
+            {/*placeholder="Enter Instructions"*/}
+          {/*/>*/}
+          {/*<button onClick={this.handleFormSubmit}>Submit</button>*/}
+        {/*</form>*/}
   </div>
   )
 }

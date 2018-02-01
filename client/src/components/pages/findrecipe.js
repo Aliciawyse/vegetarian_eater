@@ -111,10 +111,6 @@ handleInputChange = event => {
                   })}
               </Container>
           </Hero>
-
-
-
-
       </div>
     );
   }

@@ -1,11 +1,15 @@
 import React from "react";
-import {Card, Content, Container} from 'reactbulma'
+import {Card, Content, Container, Section} from 'reactbulma'
 
 const leftPanelStyle = {
     marginBottom: "1.5%",
     display:"flex",
     flexWrap:"wrap",
     justifyContent:"center"
+};
+
+const cardSpacing = {
+    marginBottom: "4%"
 };
 
 class Profile extends React.Component {
@@ -15,77 +19,64 @@ class Profile extends React.Component {
             <div style={leftPanelStyle}>
 
                 {/*left panel*/}
-                <Container style={{display:"flex", flexDirection:"column", width:"30%"}} >
+                <Section style={{display:"flex", flexDirection:"column", width:"30%"}} >
 
-                    <Card >
+                    <Card style={cardSpacing}>
                         <Card.Header>
                             <Card.Header.Title>
-                                Component
+                                User Profile
                             </Card.Header.Title>
                         </Card.Header>
                         <Card.Content>
                             <Content>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                                Member since:
                             </Content>
                         </Card.Content>
                     </Card>
 
-                    <Card>
+                    <Card style={cardSpacing}>
                         <Card.Header>
                             <Card.Header.Title>
-                                Component
+                                Recent restaurant searches
                             </Card.Header.Title>
                         </Card.Header>
-                        <Card.Content>
-                            <Content>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-                            </Content>
-                        </Card.Content>
+                        {/*<Card.Content>*/}
+                            {/*<Content>*/}
+                                {/*Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.*/}
+                            {/*</Content>*/}
+                        {/*</Card.Content>*/}
                     </Card>
 
-                    <Card>
+                    <Card style={cardSpacing}>
                         <Card.Header>
                             <Card.Header.Title>
-                                Component
+                                Recent recipe searches
                             </Card.Header.Title>
                         </Card.Header>
-                        <Card.Content>
-                            <Content>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-                            </Content>
-                        </Card.Content>
+                        {/*<Card.Content>*/}
+                            {/*<Content>*/}
+                                {/*Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.*/}
+                            {/*</Content>*/}
+                        {/*</Card.Content>*/}
                     </Card>
-
-                    <Card>
-                        <Card.Header>
-                            <Card.Header.Title>
-                                Component
-                            </Card.Header.Title>
-                        </Card.Header>
-                        <Card.Content>
-                            <Content>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-                            </Content>
-                        </Card.Content>
-                    </Card>
-
-                </Container>
+                </Section>
 
 
                 {/*right panel*/}
-
+                <Section style={{width:"50%", height:"70%"}}>
                     <Card>
                         <Card.Header>
-                            <Card.Header.Title>
-                                Component
+                            <Card.Header.Title >
+                                Latest interests
                             </Card.Header.Title>
                         </Card.Header>
                         <Card.Content>
                             <Content>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                                Nothing searched yet.
                             </Content>
                         </Card.Content>
                     </Card>
+                </Section>
             </div>
         )
     }
