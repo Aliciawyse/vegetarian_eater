@@ -49,7 +49,7 @@ class LandingPage extends React.Component {
 
                             <div>
 
-                            <Input style={{marginBottom:"2%"}} warning medium id="userPassword" placeholder="password"/>
+                            <Input style={{marginBottom:"2%"}} warning medium id="userPassword" placeholder="password" type="password" />
                             </div>
                             <div>
                                 <Button  type="submit" primary>Next</Button>

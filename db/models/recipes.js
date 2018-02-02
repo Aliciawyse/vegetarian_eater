@@ -9,9 +9,8 @@ var SearchRecSchema = new Schema({
 
   // `title` must be of type String
   recipeinfo: { type: String,
-  required: true,
-  unique: true
-  // `body` must be of type String
+  required: true
+    // `body` must be of type String
   }
 });
 

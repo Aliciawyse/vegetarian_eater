@@ -9,8 +9,7 @@ var IngredientSchema = new Schema({
 
   // `title` must be of type String
   ingredient: { type: String,
-  required: true,
-  unique: true
+  required: true
   // `body` must be of type String
   }
 });

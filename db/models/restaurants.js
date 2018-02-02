@@ -9,9 +9,8 @@ var RestaurantSchema = new Schema({
 
   // `title` must be of type String
   restaurantinfo: { type: String,
-  required: true,
-  unique: true
-  // `body` must be of type String
+  required: true
+    // `body` must be of type String
   },
 
   date: { type: Date, default: Date.now }
