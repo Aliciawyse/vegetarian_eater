@@ -18,12 +18,13 @@ module.exports = function (app){
     app.get("/search-city/restaurant", (req, res) => {
 
         console.log(req.query)
+        
         zomato.cities({
             q:req.query.query,
             count: 1  
         })
         .then(function(data) {
-            console.log(data[0].id);
+            console.log('hello',data[0].id);
             let cityid = data[0].id
             zomato.search({
                 entity_id: cityid,
@@ -33,16 +34,16 @@ module.exports = function (app){
                 sort: 'rating',
                 order: 'desc'
             })
-            .then(function(data) {
-                console.log(data);
-                res.send(data.restaurants)
+            .then(function(result) {
+               // console.log('hello',result);
+                res.send(result)
             })
             .catch(function(err) {
-                console.error(err);
+               // console.error(err);
             });
         })
         .catch(function(err) {
-            console.error(err);
+           // console.error(err);
         });
     });
 

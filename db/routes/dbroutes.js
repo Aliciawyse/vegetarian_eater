@@ -78,8 +78,8 @@ module.exports = function (app){
         //console.log('this is working',JSON.stringify(req.body, null, '   '))
         //res.send("... adding results to restaurant search")
         //console.log('this is working',JSON.stringify(req.body.query.data, null, '   '))
-        let restaurants = req.body.query.data
-        //console.log(req.body.id)
+        let restaurants = req.body
+        console.log('hello',restaurants)
 
         let userID = req.body.id
         //req.body.query.data.map(restuarant => {
@@ -101,8 +101,8 @@ module.exports = function (app){
 
 
             db.Restaurants.create({restaurantinfo: restObjStrg }).then(function(restaurant){
-                console.log("1 restaurant document inserted\n");
-                console.log(restaurant._id +'\n')
+               // console.log("1 restaurant document inserted\n");
+                //console.log(restaurant._id +'\n')
 
                 db.Users.findOneAndUpdate({id: userID}, { $push: { recentres: restaurant._id } }, { new: true })
                     .then(function(User) {
