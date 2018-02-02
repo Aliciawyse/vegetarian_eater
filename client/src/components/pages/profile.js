@@ -12,6 +12,7 @@ const cardSpacing = {
     marginBottom: "4%"
 };
 
+
 class Profile extends React.Component {
 
     render() {

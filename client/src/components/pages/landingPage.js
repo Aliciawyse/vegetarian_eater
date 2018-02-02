@@ -70,7 +70,7 @@ class LandingPage extends React.Component {
         //On click of submit button, grab user data and push to firebase.
         const userEmail = $("#userEmail").val().trim();
         const userPassword = $("#userPassword").val().trim();
-        //const userName = $("#userName").val().trim();
+        const userName = $("#userName").val().trim();
         const push = this.props.history.push;
         const mongoUsers = [];
 
@@ -78,8 +78,18 @@ class LandingPage extends React.Component {
             .then(function(user) {
                 console.log("User created!!!");
                 if (user) {
+
+                    //push to firebase
+                    firebase.database().ref('users/' + user.uid).set({
+                        userFirstName: userName,
+                        userEmail: userEmail,
+                    });
+
+                    //save username to local storage
+                    window.localStorage.setItem("the user", userName);
+
                     console.log("User has successfully signed in!!!" + JSON.stringify(user));
-                    console.log(user.uid, user.email)
+                    console.log(user.uid, user.email )
                     mongoUsers.push({
                     id: user.uid, 
                     email: user.email

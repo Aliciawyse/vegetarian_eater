@@ -14,6 +14,14 @@ class appContainer extends React.Component {
 
     constructor({match, ...props}){
         super(props)
+        this.username = window.localStorage.getItem("the user");
+
+    }
+
+    componentDidMount(){
+
+        console.log(this.username, "NAME!!!");
+
     }
 
     render() {
@@ -31,7 +39,15 @@ class appContainer extends React.Component {
                     </Level.Left>
 
                     <Level.Right>
-                        <Level.Item><Icon onClick={this.myProfile}><i style={{fontSize: "28px"}} className="fa fa-user fa-3"/></Icon></Level.Item>
+                        <Level.Item>
+
+                            <Icon onClick={this.myProfile}>
+                                <i style={{fontSize: "28px"}} className="fa fa-user fa-3"/>
+                            </Icon>
+                            <SubTitle>
+                                Welcome, {this.username}!
+                            </SubTitle>
+                        </Level.Item>
                     </Level.Right>
                 </Level>
 
