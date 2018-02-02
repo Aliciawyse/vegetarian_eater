@@ -55,6 +55,8 @@ handleInputChange = event => {
       intr:this.state.instructions
     }
 
+    let uId = localStorage.getItem('id')
+
     console.log(postObj)
 
     event.preventDefault();
@@ -62,7 +64,7 @@ handleInputChange = event => {
       alert("Please enter a name for this recipe");
     } else {
       //console.log(post, ingrArr)
-      API.postRecipes(postObj).then(function(result){
+      API.postRecipes(postObj, uId).then(function(result){
         console.log(result)
       }).catch(function(err) {
       // If an error occurred, send it to the client

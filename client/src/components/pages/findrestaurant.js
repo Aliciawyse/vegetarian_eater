@@ -33,6 +33,10 @@ handleFormSubmit = event => {
       API.getCity(query)
       .then(res => {
         console.log(res)
+        let id = localStorage.getItem('id')
+        API.postResSearch(res, id).then(resp => {
+            console.log(resp)
+        }).catch(err => console.log(err))
       })
       .catch(err => console.log(err));
     }
@@ -41,33 +45,34 @@ handleFormSubmit = event => {
     });
   };
 
-searchCurLoc = event => {
-
+    searchCurLoc = event => {
         // Preventing the default behavior of the form submit (which is to refresh the page)
-        console.log("test TEST!!!!!!");
+        //console.log("test TEST!!!!!!");
         geolocation.getCurrentPosition((err, position) => {
 
-            if (err) throw err
-        else{
-         //console.log(position)
-                console.log("this", this);
+            if (err) 
+                throw err
+            
+            else{
+                console.log(position)
+                //console.log("this", this);
 
                 let geoloc = position.coords
-          //console.log(geoloc)
-          API.getRestaurants(geoloc)
-          .then(res => {
-            console.log(res)
-            this.setState({ results: res.data.restaurants })
+                console.log(geoloc)
+                API.getRestaurants(geoloc)
+                .then(res => {
+                //console.log(res.data)
+                this.setState({ results: res.data })
+                let id = localStorage.getItem('id')
 
-            API.postResSearch(res).then(res => {
-          console.log(res)
+                API.postResSearch(res, id).then(resp => {
+                    console.log(resp)
+                })
+              }).catch(err => console.log(err));
+            }
+
         })
-          })
-          .catch(err => console.log(err));
-    }
-
-      })
-      };
+    };
 
 render() {
     // Notice how each input has a `value`, `name`, and `onChange` prop

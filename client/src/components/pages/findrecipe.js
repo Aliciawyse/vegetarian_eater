@@ -34,6 +34,11 @@ handleInputChange = event => {
       .then(res => {
         console.log(res)
         this.setState({ results: res.data })
+
+        let id = localStorage.getItem('id')
+        API.postRecSearch(res, id).then(resp => {
+            console.log(resp)
+        }).catch(err => console.log(err))
       })
       .catch(err => console.log(err));
     }

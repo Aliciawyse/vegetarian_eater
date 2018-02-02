@@ -1,10 +1,47 @@
 import React from "react";
 import {Card, Content, Container} from 'reactbulma'
+import API from "../../api/API.js";
 
 
 class Profile extends React.Component {
+    
+    State = {
+        results: ""
+    };
+
+
+    findUserRestaurants = (id) => {
+        API.getrecentRest(id)
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => console.log(err));
+    }
+
+
+    findUserRecipes = (id) => {
+        API.getrecentRecs(id)
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => console.log(err));
+    }
+
+
+    findUserRecipePost = (id) => {
+        API.getPostedRecipes(id)
+            .then(res => {
+                console.log(res)
+            })
+            .catch(err => console.log(err));
+    }
 
     render() {
+        let userid = localStorage.getItem('id')
+        this.findUserRestaurants(userid)
+        this.findUserRecipes(userid)
+        this.findUserRecipePost(userid)
+
         return (
             <div style={{display:"flex", flexWrap:"wrap", justifyContent:"center"}}>
 
@@ -83,8 +120,6 @@ class Profile extends React.Component {
             </div>
         )
     }
-
-
 
 }
 

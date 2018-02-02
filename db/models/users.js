@@ -29,7 +29,7 @@ recentres:[{
   type: Schema.Types.ObjectId,
   ref: "Restaurants"
 }],
-recentrec:[{
+savedrec:[{
   type: Schema.Types.ObjectId,
   ref: "SavedRecipes"
 }]
