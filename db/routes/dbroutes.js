@@ -47,7 +47,7 @@ module.exports = function (app){
                       db.Recipes.findOneAndUpdate({_id: recid}, { $push: { ingredients: ingredientID } }, { new: true })
                           .then(function(Recipe) {
                       
-                               //console.log(Recipe)
+                               console.log(Recipe)
                               //console.log("results added to recent restaurants searches")
                           })
 
@@ -146,7 +146,7 @@ module.exports = function (app){
 
 
             let recObjStr = JSON.stringify(recObj, null, '   ')
-            console.log(recObjStr)
+            //console.log(recObjStr)
 
             db.SearchedRecipes.create({recipeinfo: recObjStr }).then(function(recipe){
                 console.log(recipe)
@@ -172,7 +172,7 @@ module.exports = function (app){
             .findOne({id:req.query.id})
             .populate("recentres")
             .then(function(result){
-                console.log('populated restaurants', result)
+                //console.log('populated restaurants', result)
                 res.send(result)
             })
             .catch(function(err){
@@ -198,9 +198,9 @@ module.exports = function (app){
 
 
     app.get("/search-postedrecipes", function(req,res){
-        console.log(req.query)
+        console.log(req.query[0])
         db.Users
-            .findOne({id:req.query})
+            .findOne({id:req.query[0]})
             .populate("postedrec")
             .then(function(result){
                 console.log(result)
