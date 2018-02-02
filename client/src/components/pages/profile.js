@@ -13,7 +13,7 @@ class Profile extends React.Component {
     findUserRestaurants = (id) => {
         API.getrecentRest(id)
             .then(res => {
-                console.log(res)
+                console.log("recent restaurants",res)
             })
             .catch(err => console.log(err));
     }
@@ -22,7 +22,7 @@ class Profile extends React.Component {
     findUserRecipes = (id) => {
         API.getrecentRecs(id)
             .then(res => {
-                console.log(res)
+                console.log("recent recipes",res)
             })
             .catch(err => console.log(err));
     }
@@ -30,8 +30,8 @@ class Profile extends React.Component {
 
     findUserRecipePost = (id) => {
         API.getPostedRecipes(id)
-            .then(res => {
-                console.log(res)
+            .then(res => {  
+                console.log("recipes posted",res)
             })
             .catch(err => console.log(err));
     }
