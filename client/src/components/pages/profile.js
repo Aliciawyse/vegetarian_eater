@@ -1,23 +1,47 @@
 import React from "react";
-import {Card, Content, Container} from 'reactbulma'
+import {Card, Content, Container, Section, SubTitle} from 'reactbulma'
 import API from "../../api/API.js";
 
+const leftPanelStyle = {
+    marginBottom: "1.5%",
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center"
+};
+
+const cardSpacing = {
+    marginBottom: "4%"
+};
+
+const findUserRestaurants = (id) => {
+    return API.getrecentRest(id)
+        .then(res => {
+            console.log(res)
+            return res.data // unstringfy this before return
+        })
+        .catch(err => console.log(err));
+};
 
 class Profile extends React.Component {
-    
-    State = {
-        results: ""
-    };
 
+    constructor(props) {
+        super(props);
+    }
 
+/*<<<<<<< HEAD
     findUserRestaurants = (id) => {
         API.getrecentRest(id)
             .then(res => {
                 console.log("recent restaurants",res)
+=======*/
+    componentWillMount() {
+        let userid = localStorage.getItem('id');
+        findUserRestaurants(userid).then((data) => {
+            this.setState({
+                restaurants: data.recentres.map((restaurant) => JSON.parse(restaurant.restaurantinfo))
             })
-            .catch(err => console.log(err));
+        });
     }
-
 
     findUserRecipes = (id) => {
         API.getrecentRecs(id)
@@ -38,85 +62,81 @@ class Profile extends React.Component {
 
     render() {
         let userid = localStorage.getItem('id')
-        this.findUserRestaurants(userid)
-        this.findUserRecipes(userid)
-        this.findUserRecipePost(userid)
+        // this.findUserRestaurants(userid)
+        // this.findUserRecipes(userid)
+        // this.findUserRecipePost(userid)
 
         return (
-            <div style={{display:"flex", flexWrap:"wrap", justifyContent:"center"}}>
+            <div style={leftPanelStyle}>
 
                 {/*left panel*/}
-                <Container style={{display:"flex", flexDirection:"column", width:"30%"}} >
+                <Section style={{display: "flex", flexDirection: "column", width: "30%"}}>
 
-                    <Card >
+                    <Card style={cardSpacing}>
                         <Card.Header>
                             <Card.Header.Title>
-                                Component
+                                User Profile
                             </Card.Header.Title>
                         </Card.Header>
                         <Card.Content>
                             <Content>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                                Member since:
                             </Content>
                         </Card.Content>
                     </Card>
 
-                    <Card>
+                    <Card style={cardSpacing}>
                         <Card.Header>
                             <Card.Header.Title>
-                                Component
+                                Recent restaurant searches
                             </Card.Header.Title>
                         </Card.Header>
-                        <Card.Content>
-                            <Content>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-                            </Content>
-                        </Card.Content>
+                        {/*<Card.Content>*/}
+                        {/*<Content>*/}
+                        {/*Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.*/}
+                        {/*</Content>*/}
+                        {/*</Card.Content>*/}
                     </Card>
 
-                    <Card>
+                    <Card style={cardSpacing}>
                         <Card.Header>
                             <Card.Header.Title>
-                                Component
+                                Recent recipe searches
                             </Card.Header.Title>
                         </Card.Header>
-                        <Card.Content>
-                            <Content>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-                            </Content>
-                        </Card.Content>
+                        {/*<Card.Content>*/}
+                        {/*<Content>*/}
+                        {/*Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.*/}
+                        {/*</Content>*/}
+                        {/*</Card.Content>*/}
                     </Card>
-
-                    <Card>
-                        <Card.Header>
-                            <Card.Header.Title>
-                                Component
-                            </Card.Header.Title>
-                        </Card.Header>
-                        <Card.Content>
-                            <Content>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-                            </Content>
-                        </Card.Content>
-                    </Card>
-
-                </Container>
+                </Section>
 
 
                 {/*right panel*/}
-
+                <Section style={{width: "50%", height: "70%"}}>
                     <Card>
                         <Card.Header>
                             <Card.Header.Title>
-                                Component
+                                Latest interests
                             </Card.Header.Title>
                         </Card.Header>
                         <Card.Content>
                             <Content>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+
+                                {this.state && this.state.restaurants && this.state.restaurants.map(restaurant => {
+                                    return (
+                                        <div>
+                                            <SubTitle>{restaurant.name}</SubTitle>
+                                        </div>
+                                    )
+                                })
+                                }
+
                             </Content>
                         </Card.Content>
                     </Card>
+                </Section>
             </div>
         )
     }

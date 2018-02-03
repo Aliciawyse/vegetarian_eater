@@ -2,7 +2,7 @@ import React from "react";
 import Dashboard from "./pages/dashboard.js";
 import { Route } from "react-router-dom";
 import { Level, SubTitle, Icon } from 'reactbulma'
-import Logout from "./pages/profile.js";
+import Profile from "./pages/profile.js";
 import Login from "./pages/login";
 import Findrec from "./pages/findrecipe";
 import Findres from "./pages/findrestaurant";
@@ -14,6 +14,14 @@ class appContainer extends React.Component {
 
     constructor({match, ...props}){
         super(props)
+        this.username = window.localStorage.getItem("the user");
+
+    }
+
+    componentDidMount(){
+
+        console.log(this.username, "NAME!!!");
+
     }
 
     render() {
@@ -31,15 +39,24 @@ class appContainer extends React.Component {
                     </Level.Left>
 
                     <Level.Right>
-                        <Level.Item><Icon onClick={this.myProfile}><i style={{fontSize: "28px"}} className="fa fa-user fa-3"/></Icon></Level.Item>
+                        <Level.Item>
+
+                            <Icon onClick={this.myProfile}>
+                                <i style={{fontSize: "28px"}} className="fa fa-user fa-3"/>
+                            </Icon>
+                            <SubTitle style={{color:"white"}}>
+                                Welcome, {this.username}!
+                            </SubTitle>
+                        </Level.Item>
                     </Level.Right>
                 </Level>
 
                 {/* When in the app, default to show the dashboard */}
                 <Route exact path={`${match.url}`} component={Dashboard} />
 
+
                 {/* defining sub-routes */}
-                <Route path={`${match.url}/logout`} component={Logout} />
+                <Route path={`${match.url}/profile`} component={Profile} />
                 <Route path={`${match.url}/login`} component={Login} />
                 <Route path={`${match.url}/find-recipes`} component={Findrec} />
                 <Route path={`${match.url}/find-restaurants`} component={Findres} />
@@ -52,7 +69,7 @@ class appContainer extends React.Component {
     myProfile = (e) => {
         e.preventDefault();
         const push = this.props.history.push;
-        push(`${this.props.match.url}/logout`);
+        push(`${this.props.match.url}/profile`);
 
     }
 }

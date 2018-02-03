@@ -7,7 +7,20 @@ var Schema = mongoose.Schema;
 // This is similar to a Sequelize model
 var RestaurantSchema = new Schema({
 
-  // `title` must be of type String
+  resID:{
+  	type: String,
+  required: true
+
+  },
+
+
+  UID:{
+  	type: String,
+  required: true
+
+  },
+
+
   restaurantinfo: { type: String,
   required: true
     // `body` must be of type String

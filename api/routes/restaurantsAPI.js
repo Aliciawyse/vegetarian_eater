@@ -15,7 +15,7 @@ const zomato = new Zomato(keys.zomato)
 // It accepts a "query" or term to search the recipe api for
 module.exports = function (app){
     
-    app.get("/search-city/restaurant", (req, res) => {
+    app.get("/search-city/restaurants", (req, res) => {
 
         console.log(req.query)
         
@@ -24,7 +24,7 @@ module.exports = function (app){
             count: 1  
         })
         .then(function(data) {
-            console.log('hello',data[0].id);
+            console.log('this is supposed to be the city id',data[0].id);
             let cityid = data[0].id
             zomato.search({
                 entity_id: cityid,
@@ -36,7 +36,7 @@ module.exports = function (app){
             })
             .then(function(result) {
                // console.log('hello',result);
-                res.send(result)
+                res.send(result.restaurants)
             })
             .catch(function(err) {
                // console.error(err);

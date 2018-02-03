@@ -1,11 +1,10 @@
 import React from "react";
-import { Link } from 'react-router-dom'
 import $ from "jquery";
 import API from "../../api/API.js"
 import * as firebase from "firebase";
 
 //bulma ui
-import { Section, Container, Title, SubTitle, Input, Button, Card, Box, Hero} from 'reactbulma'
+import { Section, Container, Title, SubTitle, Input, Button, Hero} from 'reactbulma'
 
 
 class LandingPage extends React.Component {
@@ -34,32 +33,32 @@ class LandingPage extends React.Component {
 
                 </Section>
 
-                <Section style={{width:"50%"}}>
+                <Section style={{width:"55%"}}>
 
-                    <Container style={{width:"65%",bottom:"-30%", textAlign:"center"}}>
+                    <Container style={{width:"70%",bottom:"-30%", textAlign:"center"}}>
                         <form  onSubmit={this.handleSubmit}>
 
-                        <div>
-                            <h2>Enter email and password to create an account</h2>
-                            <Input style={{marginTop:"2%", marginBottom:"2%"}} warning medium id="userEmail" placeholder="email address"/>
-                        </div>
-                        <div>
-
-                            <Input style={{marginBottom:"2%"}} warning medium id="userPassword" placeholder="password"/>
-                        </div>
                             <div>
-                                {/*<Button primary><Link to="/home">Next</Link></Button>*/}
+                                <h2>Enter your name, email & password to create an account</h2>
+                                <Input style={{marginBottom:"2%"}} warning medium id="userName" placeholder="name"/>
+                            </div>
+
+                            <div>
+                            <Input style={{marginTop:"2%", marginBottom:"2%"}} warning medium id="userEmail" placeholder="email address"/>
+                            </div>
+
+                            <div>
+
+                            <Input style={{marginBottom:"2%"}} warning medium id="userPassword" placeholder="password" type="password" />
+                            </div>
+                            <div>
                                 <Button  type="submit" primary>Next</Button>
                             </div>
 
                         </form>
-
                     </Container>
-
                 </Section>
             </div>
-
-
         )
     }
 
@@ -71,6 +70,7 @@ class LandingPage extends React.Component {
         //On click of submit button, grab user data and push to firebase.
         const userEmail = $("#userEmail").val().trim();
         const userPassword = $("#userPassword").val().trim();
+        const userName = $("#userName").val().trim();
         const push = this.props.history.push;
         const mongoUsers = [];
 
@@ -78,8 +78,18 @@ class LandingPage extends React.Component {
             .then(function(user) {
                 console.log("User created!!!");
                 if (user) {
+
+                    //push to firebase
+                    firebase.database().ref('users/' + user.uid).set({
+                        userFirstName: userName,
+                        userEmail: userEmail,
+                    });
+
+                    //save username to local storage
+                    window.localStorage.setItem("the user", userName);
+
                     console.log("User has successfully signed in!!!" + JSON.stringify(user));
-                    console.log(user.uid, user.email)
+                    console.log(user.uid, user.email )
                     mongoUsers.push({
                     id: user.uid, 
                     email: user.email

@@ -87,31 +87,50 @@ module.exports = function (app){
             //console.log('\n restaurant ' + i + restaurants[i] + '\n \n \n')
             //console.log(JSON.stringify(restaurants[i], null, '   '))
             //let responseObject = restaurants[i]
-            let restObj = {
-              resid: restaurants[i].id,
+            let restObj ={
+              id:restaurants[i].id,
+              uid:uid,
+            info: {
               name: restaurants[i].name,
               url:restaurants[i].url,
               loc: restaurants[i].location,
             }
+          }
 
             //console.log(restObj)
 
-            let restObjStrg = JSON.stringify(restObj, null, '   ')
+            let restObjStrg = JSON.stringify(restObj.info, null, '   ')
             //console.log(restObjStrg)
 
 
+/*<<<<<<< HEAD
             db.Restaurants.create({restaurantinfo: restObjStrg }).then(function(restaurant){
                // console.log("1 restaurant document inserted\n");
                 //console.log(restaurant._id +'\n')
+=======*/
+
+              console.log("upsert")
+            db.Restaurants.findOneAndUpdate({resID: restObj.id, UID: restObj.uid }, { resid: restObj.resid, resID: restObj.id, UID:restObj.uid,restaurantinfo: restObjStrg }, { upsert: true }).then(function(restaurant){
+                
+                console.log(restaurant)
+                if (restaurant){
+                //console.log("1 restaurant document inserted\n");
+                console.log(restaurant._id +'\n')
 
                 db.Users.findOneAndUpdate({id: userID}, { $push: { recentres: restaurant._id } }, { new: true })
                     .then(function(User) {
             
-                        //console.log(User)
-                        //console.log("results added to recent restaurants searches")
+                        console.log(User)
+                        console.log("results added to recent restaurants searches")
                     })
+
+                }
+
+                else if(!restaurant){
+                  console.log('nothing already there')
+                }
                 }).catch(function(err){
-                      console.log(err)
+                      console.log(err) 
             });
         }
         res.send("Done!")

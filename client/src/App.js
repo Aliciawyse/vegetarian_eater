@@ -12,7 +12,7 @@ const App = () =>
       <div>
 
           <Route exact path="/" component={LandingPage} />
-          <Route path="/home" component={Domroutes}/>
+          <Route path="/home" component={Domroutes} />
 
       </div>
     </Router>;

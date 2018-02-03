@@ -1,7 +1,11 @@
 import API from "../../api/API.js"
 import React, { Component } from "react";
 import geolocation from 'geolocation'
-import { Section, Container, Title, SubTitle, Input, Button, Hero } from 'reactbulma'
+import { Section, Container, Title, SubTitle, Input, Button, Hero, Card, Content} from 'reactbulma'
+
+const buttonStyle = {
+    marginRight:"1%"
+};
 
 class Findres extends Component {
   // Setting the component's initial state
@@ -35,7 +39,7 @@ handleFormSubmit = event => {
         console.log(res)
         let id = localStorage.getItem('id')
         API.postResSearch(res, id).then(resp => {
-            console.log(resp)
+            //console.log(res)
         }).catch(err => console.log(err))
       })
       .catch(err => console.log(err));
@@ -50,9 +54,9 @@ handleFormSubmit = event => {
         //console.log("test TEST!!!!!!");
         geolocation.getCurrentPosition((err, position) => {
 
-            if (err) 
+            if (err)
                 throw err
-            
+
             else{
                 console.log(position)
                 //console.log("this", this);
@@ -61,7 +65,7 @@ handleFormSubmit = event => {
                 console.log(geoloc)
                 API.getRestaurants(geoloc)
                 .then(res => {
-                //console.log(res.data)
+                console.log(res)
                 this.setState({ results: res.data })
                 let id = localStorage.getItem('id')
 
@@ -75,86 +79,89 @@ handleFormSubmit = event => {
     };
 
 render() {
-    // Notice how each input has a `value`, `name`, and `onChange` prop
-
-
 
     return (
       <div>
-          {this.state.results.map(restuarant => {
-              return (
-                  //for each restaurant data object make a ui compoment
-                  <div>
-                      {restuarant.name}
-                  </div>
-              )
-          })}
+          <Section>
+              <Hero>
+                  <Hero.Body>
+                      <Container>
+                          <Title>Find Restaurants</Title>
+                          <SubTitle>A simple way to find restaurants that serve <strong>vegetarian</strong> meals that you love.</SubTitle>
 
-        {/*<form className="form">*/}
-          {/*<input*/}
-            {/*name="location"*/}
-            {/*value={this.state.location}*/}
-            {/*type="text"*/}
-            {/*onChange={this.handleInputChange}*/}
-            {/*placeholder="city, state"*/}
-          {/*/>*/}
-          {/*<button onClick={this.handleFormSubmit}>Submit</button>*/}
-        {/*</form>*/}
+                          {/*/!*Future addition*!/*/}
+                          {/*<form style={{marginBottom:"3%"}}>*/}
+                              {/*<Input*/}
+                                  {/*style={{width:"60%"}}*/}
+                                  {/*primary*/}
+                                  {/*large id="large"*/}
+                                  {/*placeholder="Search: Tofu"*/}
+                                  {/*type="text"*/}
+                              {/*/>*/}
 
-        <Section>
-<Hero>
-  <Hero.Body>
-    <Container>
+                              {/*<Container style={{marginTop:"1%"}}>*/}
+                                  {/*<Button style = {buttonStyle} primary>Tofu</Button>*/}
+                                  {/*<Button style = {buttonStyle} info>Soup</Button>*/}
+                                  {/*<Button style = {buttonStyle} success>Sandwiches</Button>*/}
+                                  {/*<Button style = {buttonStyle} warning>Noodles</Button>*/}
+                                  {/*<Button style = {buttonStyle} danger>Quinoa</Button>*/}
+                              {/*</Container>*/}
+                          {/*</form>*/}
 
-      <Title>Find Restuarants</Title>
+                          <form className="form" style={{marginTop:"2%"}}>
+                              <Input
+                                  style={{width:"60%"}}
+                                  primary
+                                  large id="large"
+                                  name="location"
+                                  value={this.state.location}
+                                  type="text"
+                                  onChange={this.handleInputChange}
+                                  placeholder="City, State"
+                              />
+                              <br></br>
+                              <Button style={{marginTop:"1.3%"}} info onClick={this.handleFormSubmit}>
+                                  Search your city & state!
+                              </Button>
+                          </form>
+                          <p>OR</p>
+                          <Button danger onClick={this.searchCurLoc}>Search Current Location</Button>
+                      </Container>
+                  </Hero.Body>
+              </Hero>
+          </Section>
+          <Hero warning>
+              <Container style={{textAlign:"center"}}>
 
-      <SubTitle>A simple way to find restaurants that serve <strong>vegetarian</strong> meals that you love.</SubTitle>
+                  {this.state.results.map(restuarant => {
+                      return (
+                          //for each restaurant data object make a ui compoment
 
-      <form className="form" style={{marginTop:"2%"}}>
+                          <div style={{display:"inline-block", width:"20%", margin:"3%" }}>
+                              <Card>
+                                  <Card.Header>
+                                      <Card.Header.Title>
+                                          {restuarant.name}
+                                      </Card.Header.Title>
+                                  </Card.Header>
+                                  <Card.Content>
+                                      <Content>
+                                          {restuarant.cuisines}
+                                          <br></br>
+                                          <small>{restuarant.location.locality_verbose}</small>
+                                      </Content>
+                                  </Card.Content>
+                              </Card>
+                          </div>
 
-        <Input
-                primary
-                large id="large"
-                name="location"
-                value={this.state.location}
-                type="text"
-                onChange={this.handleInputChange}
-                placeholder="City, State"
-            />
+                      )
+                  })}
+              </Container>
+          </Hero>
 
-        <Button primary>Tofu</Button>
-        <Button info>Soup</Button>
-        <Button success>Sandwiches</Button>
-        <Button warning>Noodles</Button>
-        <Button danger>Quinoa</Button>
-
-          <br></br>
-
-        <Button style={{marginTop:"1.3%"}} primary onClick={this.handleFormSubmit}>Search!</Button>
-
-      </form>
-
-        <p>OR</p>
-        <Button onClick={this.searchCurLoc}>Search Current Location</Button>
-
-        <Section>
-            <Container>
-                <Title>Section</Title>
-                <SubTitle>
-                    A simple container to divide your page into <strong>sections</strong>, like the one you're currently reading
-                </SubTitle>
-            </Container>
-        </Section>
-    </Container>
-  </Hero.Body>
-</Hero>
-
-
-        </Section>
       </div>
     );
   }
-
 }
 
 export default Findres;
