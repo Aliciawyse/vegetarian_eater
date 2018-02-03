@@ -78,8 +78,8 @@ module.exports = function (app){
         //console.log('this is working',JSON.stringify(req.body, null, '   '))
         //res.send("... adding results to restaurant search")
         //console.log('this is working',JSON.stringify(req.body.query.data, null, '   '))
-        let restaurants = req.body
-        console.log('hello',restaurants)
+        let restaurants = req.body.query.data
+        //console.log('this is the restuarants array',restaurants)
 
         let userID = req.body.id
         //req.body.query.data.map(restuarant => {
@@ -89,7 +89,7 @@ module.exports = function (app){
             //let responseObject = restaurants[i]
             let restObj ={
               id:restaurants[i].id,
-              uid:uid,
+              uid:userID,
             info: {
               name: restaurants[i].name,
               url:restaurants[i].url,
@@ -97,7 +97,7 @@ module.exports = function (app){
             }
           }
 
-            //console.log(restObj)
+            console.log(restObj)
 
             let restObjStrg = JSON.stringify(restObj.info, null, '   ')
             //console.log(restObjStrg)
@@ -110,10 +110,9 @@ module.exports = function (app){
 =======*/
 
               console.log("upsert")
-            db.Restaurants.findOneAndUpdate({resID: restObj.id, UID: restObj.uid }, { resid: restObj.resid, resID: restObj.id, UID:restObj.uid,restaurantinfo: restObjStrg }, { upsert: true }).then(function(restaurant){
+            db.Restaurants.findOneAndUpdate({resID: restObj.id, restaurantinfo: restObjStrg }, { resid: restObj.resid, resID: restObj.id, UID:restObj.uid,restaurantinfo: restObjStrg }, { upsert: true }).then(function(restaurant){
                 
                 console.log(restaurant)
-                if (restaurant){
                 //console.log("1 restaurant document inserted\n");
                 console.log(restaurant._id +'\n')
 
@@ -123,12 +122,6 @@ module.exports = function (app){
                         console.log(User)
                         console.log("results added to recent restaurants searches")
                     })
-
-                }
-
-                else if(!restaurant){
-                  console.log('nothing already there')
-                }
                 }).catch(function(err){
                       console.log(err) 
             });
