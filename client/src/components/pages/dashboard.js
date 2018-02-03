@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, Route } from "react-router-dom";
 import { Container, Card, Content, Section, Image, Title, SubTitle} from 'reactbulma';
+import $ from "jquery";
 
 //A better way to add style for cleaner code.
 const containerStyle = {
@@ -9,6 +10,7 @@ const containerStyle = {
 };
 
 const Dashboard = ({match}) =>
+
 
     <div>
 
@@ -94,5 +96,7 @@ const Dashboard = ({match}) =>
             {/*</li>*/}
         {/*</ul>;*/}
     </div>;
+
+
 
 export default Dashboard;

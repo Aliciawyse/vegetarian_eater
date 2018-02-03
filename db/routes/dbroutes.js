@@ -2,17 +2,7 @@
 var mongoose = require("mongoose");
 var axios = require("axios");
 
-
-// Set mongoose to leverage built in JavaScript ES6 Promises
-// Connect to the Mongo DB
-mongoose.Promise = Promise;
-mongoose.connect("mongodb://localhost/vegetarianeater_db", {
-});
-
-// Require all models
 const db = require("../models");
-
-
 // Routes
 module.exports = function (app){
 // A GET route for scraping the abcnews website
@@ -78,53 +68,84 @@ module.exports = function (app){
         //console.log('this is working',JSON.stringify(req.body, null, '   '))
         //res.send("... adding results to restaurant search")
         //console.log('this is working',JSON.stringify(req.body.query.data, null, '   '))
+
+        let userRest;
         let restaurants = req.body.query.data
         //console.log('this is the restuarants array',restaurants)
-
+        
         let userID = req.body.id
-        //req.body.query.data.map(restuarant => {
+        
         for(let i = 0; i < restaurants.length; i ++){
             //console.log('\n restaurant ' + i + restaurants[i] + '\n \n \n')
             //console.log(JSON.stringify(restaurants[i], null, '   '))
             //let responseObject = restaurants[i]
             let restObj ={
               id:restaurants[i].id,
-              uid:userID,
-            info: {
-              name: restaurants[i].name,
-              url:restaurants[i].url,
-              loc: restaurants[i].location,
+              info: {
+                name: restaurants[i].name,
+                url:restaurants[i].url,
+                loc: restaurants[i].location,
+              }
             }
-          }
 
-            console.log(restObj)
+           // console.log(restObj)
 
             let restObjStrg = JSON.stringify(restObj.info, null, '   ')
             //console.log(restObjStrg)
 
 
-/*<<<<<<< HEAD
-            db.Restaurants.create({restaurantinfo: restObjStrg }).then(function(restaurant){
+           /* db.Restaurants.create({resID: restObj.id, restaurantinfo: restObjStrg }).then(function(restaurant){
                // console.log("1 restaurant document inserted\n");
-                //console.log(restaurant._id +'\n')
-=======*/
-
-              console.log("upsert")
-            db.Restaurants.findOneAndUpdate({resID: restObj.id, restaurantinfo: restObjStrg }, { resid: restObj.resid, resID: restObj.id, UID:restObj.uid,restaurantinfo: restObjStrg }, { upsert: true }).then(function(restaurant){
+                //console.log(restaurant._id +'\n')*/
+          
+              //console.log("upsert")
+            db.Restaurants.findOneAndUpdate({resID: restObj.id, restaurantinfo: restObjStrg }, 
+                { resID: restObj.id, restaurantinfo: restObjStrg }, 
+                { upsert: true }).then(function(restaurant){
+                  
+                //console.log(restaurant)
+                  //console.log("1 restaurant document inserted\n");
+                let restID = restaurant._id
+                //console.log(restID)
+                  //console.log(userID)
+                db.Users.findOne({id: userID}).then(function(resultss){
+                    //console.log(resultss.recentres.length)
+                    userRest = resultss.recentres
+                    //console.log('user Restaurants', userRest)
+                    if(resultss.recentres.length === 0 ){
+                        console.log('no recipes, push to new user')
+                        //console.log(restID)
+                        db.Users.findOneAndUpdate({id: userID}, { $push: { recentres: restID } }, { new: true })
+                        .then(function(User) {
                 
-                console.log(restaurant)
-                //console.log("1 restaurant document inserted\n");
-                console.log(restaurant._id +'\n')
+                            //console.log(User)
+                            //console.log("results added to recent restaurants searches")
+                        })
 
-                db.Users.findOneAndUpdate({id: userID}, { $push: { recentres: restaurant._id } }, { new: true })
-                    .then(function(User) {
-            
-                        console.log(User)
-                        console.log("results added to recent restaurants searches")
-                    })
-                }).catch(function(err){
-                      console.log(err) 
-            });
+                    }
+                    else if (resultss.recentres.length > 0){
+
+                        for (let i = 0; i < resultss.recentres.length; i++){
+                            console.log('there are recipes on user!')
+                            console.log(resultss.recentres[i],restID)
+                            if (resultss.recentres[i] == restID){
+                                //console.log(userRest[i], restID)
+                                console.log('this one is already attached to user')
+                            }
+                        }
+                    }
+                    else{
+                       console.log('not found on user do something')
+                      db.Users.findOneAndUpdate({id: userID}, { $push: { recentres: restaurant._id } }, { new: true })
+                          .then(function(User) {
+                  
+                              //console.log(User)
+                              //console.log("results added to recent restaurants searches")
+                          })
+                    }
+              
+                })
+            })
         }
         res.send("Done!")
     })
@@ -200,8 +221,8 @@ module.exports = function (app){
             .findOne({id:req.query.id})
             .populate("recentrec")
             .then(function(result){
-                //console.log(result)
-                res.json(result)
+                console.log(result)
+                res.send(result)
             })
             .catch(function(err){
                 res.json(err)
@@ -215,7 +236,7 @@ module.exports = function (app){
             .findOne({id:req.query[0]})
             .populate("postedrec")
             .then(function(result){
-                console.log(result)
+                //console.log(result)
                 res.json(result)
             })
             .catch(function(err){

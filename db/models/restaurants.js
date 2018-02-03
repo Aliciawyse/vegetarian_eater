@@ -14,13 +14,6 @@ var RestaurantSchema = new Schema({
   },
 
 
-  UID:{
-  	type: String,
-  required: true
-
-  },
-
-
   restaurantinfo: { type: String,
   required: true
     // `body` must be of type String

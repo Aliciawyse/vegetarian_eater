@@ -13,6 +13,7 @@ const cardSpacing = {
     marginBottom: "4%"
 };
 
+
 const findUserRestaurants = (id) => {
     return API.getrecentRest(id)
         .then(res => {
@@ -22,46 +23,53 @@ const findUserRestaurants = (id) => {
         .catch(err => console.log(err));
 };
 
+
+const findUserRecipePost = (id) => {
+        API.getPostedRecipes(id)
+            .then(res => {  
+                console.log("recipes posted",res)
+                return(res.data)
+            })
+            .catch(err => console.log(err));
+    }
+
+const findUserRecipes = (id) => {
+        API.getrecentRecs(id)
+            .then(res => {
+                console.log("recent recipes",res)
+                return(res)
+            })
+            .catch(err => console.log(err));
+    }
+
+
 class Profile extends React.Component {
 
     constructor(props) {
         super(props);
     }
 
-/*<<<<<<< HEAD
-    findUserRestaurants = (id) => {
-        API.getrecentRest(id)
-            .then(res => {
-                console.log("recent restaurants",res)
-=======*/
+
     componentWillMount() {
         let userid = localStorage.getItem('id');
+
         findUserRestaurants(userid).then((data) => {
             this.setState({
                 restaurants: data.recentres.map((restaurant) => JSON.parse(restaurant.restaurantinfo))
             })
-        });
-    }
 
-    findUserRecipes = (id) => {
-        API.getrecentRecs(id)
-            .then(res => {
-                console.log("recent recipes",res)
+        })
+
+        /*findUserRecipes(userid).then((data) => {
+            this.setState({
+                recipes: data.recentres.map((restaurant) => JSON.parse(restaurant.restaurantinfo))
             })
-            .catch(err => console.log(err));
-    }
 
+        })*/
+        };
 
-    findUserRecipePost = (id) => {
-        API.getPostedRecipes(id)
-            .then(res => {  
-                console.log("recipes posted",res)
-            })
-            .catch(err => console.log(err));
-    }
-
+    
     render() {
-        let userid = localStorage.getItem('id')
         // this.findUserRestaurants(userid)
         // this.findUserRecipes(userid)
         // this.findUserRecipePost(userid)
@@ -80,7 +88,7 @@ class Profile extends React.Component {
                         </Card.Header>
                         <Card.Content>
                             <Content>
-                                Member since:
+                                Member since: 01/03/2018
                             </Content>
                         </Card.Content>
                     </Card>
@@ -101,8 +109,8 @@ class Profile extends React.Component {
                     <Card style={cardSpacing}>
                         <Card.Header>
                             <Card.Header.Title>
-                                Recent recipe searches
-                            </Card.Header.Title>
+                                Recent recipe searches 
+                            </Card.Header.Title >
                         </Card.Header>
                         {/*<Card.Content>*/}
                         {/*<Content>*/}
@@ -127,7 +135,7 @@ class Profile extends React.Component {
                                 {this.state && this.state.restaurants && this.state.restaurants.map(restaurant => {
                                     return (
                                         <div>
-                                            <SubTitle>{restaurant.name}</SubTitle>
+                                           <a href={restaurant.url}> <SubTitle>{restaurant.name}</SubTitle></a>
                                         </div>
                                     )
                                 })

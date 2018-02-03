@@ -51,6 +51,11 @@ handleInputChange = event => {
     });
   };
 
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  };
+
   handleFormSubmit = event => {
     // Preventing the default behavior of the form submit (which is to refresh the page)
     //let post = this.state.title
@@ -175,13 +180,13 @@ render() {
           {/*</div>*/}
         {/*))}*/}
         {/*<button type="button" onClick={this.handleAddIngredient}>Add Ingredient</button>*/}
-          {/*<input*/}
+          {/*<textarea>*/}
             {/*name="instructions"*/}
             {/*value={this.state.instructions}*/}
             {/*type="text"*/}
             {/*onChange={this.handleInputChange}*/}
             {/*placeholder="Enter Instructions"*/}
-          {/*/>*/}
+          {/*</textarea>*/}
           {/*<button onClick={this.handleFormSubmit}>Submit</button>*/}
         {/*</form>*/}
   </div>
