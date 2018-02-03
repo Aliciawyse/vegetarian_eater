@@ -5,12 +5,12 @@ var axios = require("axios");
 
 // // Set mongoose to leverage built in JavaScript ES6 Promises
 // // Connect to the Mongo DB
-// mongoose.Promise = Promise;
-// mongoose.connect("mongodb://localhost/vegetarianeater_db", {
-// });
+mongoose.Promise = Promise;
+mongoose.connect("mongodb://localhost/vegetarianeater_db", {
+});
 //
 // // Require all models
-// const db = require("../models");
+const models = require("../models");
 
 
 // Routes
@@ -32,7 +32,7 @@ module.exports = function (app){
         //console.log(resObj)
 
 
-        db.Recipes.create(resObj).then(function(resp){
+        models.Recipes.create(resObj).then(function(resp){
             let UserID = req.body.id
             //console.log("1 recipe document inserted");
             res.send(resp)
@@ -40,11 +40,11 @@ module.exports = function (app){
             let recid = resp._id
             //console.log(recid)
             for(let i = 0; i < ingrs.length; i++){
-                db.Ingredients.create(ingrs[i]).then(function(ingredient){
+                models.Ingredients.create(ingrs[i]).then(function(ingredient){
                      // console.log("1 ingredient adeded document inserted");
                       //console.log(ingredient._id)
                       let ingredientID = ingredient._id
-                      db.Recipes.findOneAndUpdate({_id: recid}, { $push: { ingredients: ingredientID } }, { new: true })
+                      models.Recipes.findOneAndUpdate({_id: recid}, { $push: { ingredients: ingredientID } }, { new: true })
                           .then(function(Recipe) {
                       
                                console.log(Recipe)
@@ -54,7 +54,7 @@ module.exports = function (app){
                   })
               }
               console.log(UserID)
-              db.Users.findOneAndUpdate({id: UserID}, { $push: { postedrec: recid } }, { new: true })
+              models.Users.findOneAndUpdate({id: UserID}, { $push: { postedrec: recid } }, { new: true })
               .then(function(User){
                 console.log(User)
               })
@@ -68,7 +68,7 @@ module.exports = function (app){
     
         console.log(req.body)
 
-        db.Users.create(req.body[0]).then(function(resp){
+        models.Users.create(req.body[0]).then(function(resp){
               console.log("1 user document inserted");
               res.send("1 user document inserted")
         }) 
@@ -104,20 +104,20 @@ module.exports = function (app){
 
 
 /*<<<<<<< HEAD
-            db.Restaurants.create({restaurantinfo: restObjStrg }).then(function(restaurant){
+            models.Restaurants.create({restaurantinfo: restObjStrg }).then(function(restaurant){
                // console.log("1 restaurant document inserted\n");
                 //console.log(restaurant._id +'\n')
 =======*/
 
               console.log("upsert")
-            db.Restaurants.findOneAndUpdate({resID: restObj.id, UID: restObj.uid }, { resid: restObj.resid, resID: restObj.id, UID:restObj.uid,restaurantinfo: restObjStrg }, { upsert: true }).then(function(restaurant){
+            models.Restaurants.findOneAndUpdate({resID: restObj.id, UID: restObj.uid }, { resid: restObj.resid, resID: restObj.id, UID:restObj.uid,restaurantinfo: restObjStrg }, { upsert: true }).then(function(restaurant){
                 
                 console.log(restaurant)
                 if (restaurant){
                 //console.log("1 restaurant document inserted\n");
                 console.log(restaurant._id +'\n')
 
-                db.Users.findOneAndUpdate({id: userID}, { $push: { recentres: restaurant._id } }, { new: true })
+                models.Users.findOneAndUpdate({id: userID}, { $push: { recentres: restaurant._id } }, { new: true })
                     .then(function(User) {
             
                         console.log(User)
@@ -167,12 +167,12 @@ module.exports = function (app){
             let recObjStr = JSON.stringify(recObj, null, '   ')
             //console.log(recObjStr)
 
-            db.SearchedRecipes.create({recipeinfo: recObjStr }).then(function(recipe){
+            models.SearchedRecipes.create({recipeinfo: recObjStr }).then(function(recipe){
                 console.log(recipe)
                 console.log("1 recipe document inserted\n");
                 console.log(recipe._id +'\n')
 
-                db.Users.findOneAndUpdate({id: userID}, { $push: { recentrec: recipe._id } }, { new: true })
+                models.Users.findOneAndUpdate({id: userID}, { $push: { recentrec: recipe._id } }, { new: true })
                     .then(function(User) {
                 
                         //console.log(User)
@@ -187,7 +187,7 @@ module.exports = function (app){
 
     app.get("/getuserrests", function(req,res){
         //console.log(req.query.id)
-        db.Users
+        models.Users
             .findOne({id:req.query.id})
             .populate("recentres")
             .then(function(result){
@@ -203,7 +203,7 @@ module.exports = function (app){
 
     app.get("/getuserrecs", function(req,res){
         //console.log(req.query.id)
-        db.Users
+        models.Users
             .findOne({id:req.query.id})
             .populate("recentrec")
             .then(function(result){
@@ -218,7 +218,7 @@ module.exports = function (app){
 
     app.get("/search-postedrecipes", function(req,res){
         console.log(req.query[0])
-        db.Users
+        models.Users
             .findOne({id:req.query[0]})
             .populate("postedrec")
             .then(function(result){

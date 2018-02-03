@@ -37,6 +37,7 @@ class Profile extends React.Component {
     componentWillMount() {
         let userid = localStorage.getItem('id');
         findUserRestaurants(userid).then((data) => {
+            // console.log(JSON.stringify(data));
             this.setState({
                 restaurants: data.recentres.map((restaurant) => JSON.parse(restaurant.restaurantinfo))
             })
