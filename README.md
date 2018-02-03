@@ -21,10 +21,10 @@ A tool to help people do three things: find nearby vegetarian focused restaurant
 
 ## Development Process
 
-[1. Concept](#1-concept)
-[2. Process](#2-process)
-[3. Challenges and Successes!](#3-challenges-and-successes)
-[4. Future Additions](#5-future-additions)
+* [1. Concept](#1-concept)
+* [2. Process](#2-process)
+* [3. Challenges and Successes!](#3-challenges-and-successes)
+* [4. Future Additions](#4-future-additions)
 
 
 ### 1. Concept
@@ -97,7 +97,21 @@ vegetarian_eater
  
 ```
 
-Our `src` directory contains the heart of the React app. It includes our main component `App.js`. `appContentContainer.js` is the centerpiece of our app. Thanks to the routing in this file we have a single page app that maps URLs to specific views. These views are located in the `components` directory to organize our components.
+Our `src` directory contains the heart of the React app. It includes our main component `App.js`. `appContentContainer.js` is the centerpiece of our app. Thanks to the routing in this file we have a single page app that maps URLs to specific views. Here's a snapshot of what that looks like:
+
+```jsx harmony
+ {/* When in the app, default to show the dashboard */}
+ <Route exact path={`${match.url}`} component={Dashboard} />
+
+
+{/* Other views to display */}
+ <Route path={`${match.url}/profile`} component={Profile} />
+ <Route path={`${match.url}/find-recipes`} component={Findrec} />
+ <Route path={`${match.url}/find-restaurants`} component={Findres} />
+ <Route path={`${match.url}/post-recipes`} component={Postrec} />
+``` 
+
+These views are located in the `components` directory to organize our components.
 
 Our `db` directory includes the back-end functionality of our app. We use Mongoose to provide database access for our app. 
 
