@@ -1,68 +1,86 @@
-import API from "../../api/API.js"
+import API from "../../api/API.js";
+import SaveButton from "./saveBut.js";
+import $ from "jquery";
 import React, { Component } from "react";
-import { Section, Container, Title, SubTitle, Input, Button, Hero, Card, Content} from 'reactbulma'
+import { Section, Container, Title, SubTitle, Input, Button, Hero, Card, Content, Icon} from 'reactbulma'
+import FontAwesome from 'react-fontawesome'
 
 
 class Findrec extends Component {
-  // Setting the component's initial state
-  state = {
-    search: "",
-    results: []
-  };
 
+    constructor(props) {
+        super(props)
+        this.state={
+            search: "",
+            results: []
 
-handleInputChange = event => {
-    // Getting the value and name of the input which triggered the change
-    let value = event.target.value;
-    const name = event.target.name;
-
-    // Updating the input's state
-    this.setState({
-      [name]: value
-    });
-  };
-
-  handleFormSubmit = event => {
-    // Preventing the default behavior of the form submit (which is to refresh the page)
-    let search = this.state.search
-    event.preventDefault();
-    if (!this.state.search){
-      alert("Please enter a keyword");
-    } else {
-      console.log(search)
-     API.getRecipes(search)
-      .then(res => {
-        console.log(res)
-        this.setState({ results: res.data })
-
-        let id = localStorage.getItem('id')
-        API.postRecSearch(res, id).then(resp => {
-            console.log(resp)
-        }).catch(err => console.log(err))
-      })
-      .catch(err => console.log(err));
+        }
     }
 
-    this.setState({
-      search: ""
-    });
-  };
+    handleInputChange = event => {
+
+        let value = event.target.value;
+        this.setState({
+            search: value
+        });
+    };
+
+    handleFormSubmit = event => {
+
+        event.preventDefault();
+
+        let search = this.state.search
+
+        if (!search){
+            alert("Please enter a keyword");
+        } 
+        else {
+            console.log(search)
+            API.getRecipes(search)
+            .then(res => {
+                console.log(res)
+                this.setState({ results: res.data })
+
+                let id = localStorage.getItem('id')
+                API.postRecSearch(res, id).then(resp => {
+                    console.log(resp)
+                }).catch(err => console.log(err))
+          })
+          .catch(err => console.log(err));
+        }
+
+        this.setState({
+          search: ""
+        });
+    };
+
+
+    renderLikeunLike = event => {
+
+      console.log('clicked')
+
+      console.log(this)
+
+      if (this.children.value === false){
+        console.log(this)
+        this.children.className = 'fas fa-heart'
+        this.children.value = true
+      }
+
+      else if (this.children.value === true){
+        console.log(this)
+        this.children.className = 'far fa-heart'
+        this.children.value = true
+      }
+
+    }
+
+
+
 
   render() {
-    // Notice how each input has a `value`, `name`, and `onChange` prop
     return (
       <div>
-        {/*<form className="form">*/}
-          {/*<input*/}
-            {/*name="search"*/}
-            {/*value={this.state.search}*/}
-            {/*type="text"*/}
-            {/*onChange={this.handleInputChange}*/}
-            {/*placeholder="city, state"*/}
-          {/*/>*/}
-          {/*<button onClick={this.handleFormSubmit}>Submit</button>*/}
-        {/*</form>*/}
-
           <Section>
               <Hero>
                   <Hero.Body>
@@ -76,7 +94,6 @@ handleInputChange = event => {
 
                               <Input
                                   name="search"
-                                  value={this.state.search}
                                   type="text"
                                   onChange={this.handleInputChange}
                                   placeholder="Search recipes"
@@ -106,8 +123,18 @@ handleInputChange = event => {
                                   <Card.Header>
                                       <Card.Header.Title>
                                           {recipe.recipe.label}
+                                          {/*<a onClick={this.renderLikeunLike}>
+                                          <FontAwesome
+                                          className='far fa-heart'
+                                          value='false'
+                                          />
+                                          </a>*/}
+                                          <SaveButton>
+                                          </SaveButton>
+
                                       </Card.Header.Title>
                                   </Card.Header>
+                                  <a  target="_blank" href={recipe.recipe.url}>View Recipe</a>
 
                               </Card>
                           </div>
@@ -122,6 +149,7 @@ handleInputChange = event => {
 }
 
 export default Findrec;
+
 
 
  
