@@ -12,8 +12,9 @@ class Findrec extends Component {
         super(props)
         this.state={
             search: "",
-            results: []
-
+            results: [],
+            arr:[],
+            uid:""
         }
     }
 
@@ -24,6 +25,8 @@ class Findrec extends Component {
             search: value
         });
     };
+
+
 
     handleFormSubmit = event => {
 
@@ -38,44 +41,22 @@ class Findrec extends Component {
             console.log(search)
             API.getRecipes(search)
             .then(res => {
-                console.log(res)
-                this.setState({ results: res.data })
+                //console.log(res)
 
                 let id = localStorage.getItem('id')
                 API.postRecSearch(res, id).then(resp => {
-                    console.log(resp)
+
+                    console.log(resp,resp.data[0])
+                    this.setState({ 
+                        results: resp.data.map((recipe)=>JSON.parse(recipe.recipeinfo)),
+                        search: "",
+                        arr: resp.data.map((recipe)=>(recipe._id)),
+                        uid:localStorage.getItem('id')
+                    })
                 }).catch(err => console.log(err))
-          })
-          .catch(err => console.log(err));
+            }).catch(err => console.log(err));
         }
-
-        this.setState({
-          search: ""
-        });
     };
-
-
-    renderLikeunLike = event => {
-
-      console.log('clicked')
-
-      console.log(this)
-
-      if (this.children.value === false){
-        console.log(this)
-        this.children.className = 'fas fa-heart'
-        this.children.value = true
-      }
-
-      else if (this.children.value === true){
-        console.log(this)
-        this.children.className = 'far fa-heart'
-        this.children.value = true
-      }
-
-    }
-
-
 
 
   render() {
@@ -96,7 +77,7 @@ class Findrec extends Component {
                                   name="search"
                                   type="text"
                                   onChange={this.handleInputChange}
-                                  placeholder="Search recipes"
+                                  placeholder="Enter a keyword to search recipes"
                               />
 
                               <Button style={{marginTop:"1.3%"}} primary onClick={this.handleFormSubmit}>Search!</Button>
@@ -113,32 +94,35 @@ class Findrec extends Component {
           <Hero warning>
               <Container style={{textAlign:"center"}}>
 
-                  {this.state.results.map(recipe => {
+                  {this.state.results.map((recipe,index )=> {
+
                       return (
                           //for each restaurant data object make a ui compoment
 
                           <div style={{display:"inline-block", width:"20%", margin:"3%" }}>
                               <Card>
-                                  <Card.Image src={recipe.recipe.image} square='4by3' />
+                                  <Card.Image src={recipe.image} square='4by3' />
                                   <Card.Header>
                                       <Card.Header.Title>
-                                          {recipe.recipe.label}
+                                          {recipe.recname}
                                           {/*<a onClick={this.renderLikeunLike}>
                                           <FontAwesome
                                           className='far fa-heart'
                                           value='false'
                                           />
                                           </a>*/}
-                                          <SaveButton>
+                                          <SaveButton
+                                          id={ this.state.arr[index] }
+                                          uid={this.state.uid}
+                                          >
                                           </SaveButton>
 
                                       </Card.Header.Title>
                                   </Card.Header>
-                                  <a  target="_blank" href={recipe.recipe.url}>View Recipe</a>
+                                  <a  target="_blank" href={recipe.url}>View Recipe</a>
 
                               </Card>
                           </div>
-
                       )
                   })}
               </Container>

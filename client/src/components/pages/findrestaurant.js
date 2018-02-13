@@ -125,7 +125,7 @@ render() {
                               </Button>
                           </form>
                           <p>OR</p>
-                          <Button danger onClick={this.searchCurLoc}>Search Current Location</Button>
+                          <Button danger onClick={this.searchCurLoc}>Search Current Location!</Button>
                       </Container>
                   </Hero.Body>
               </Hero>

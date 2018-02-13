@@ -39,6 +39,18 @@ export default {
 	   	});
   	},
 
+  	savingRecipes:function(query,uid,id){
+  		return axios({
+	  		method: 'post',
+		  	url: '/saving-recipe',
+		  	data: {
+		  		query,
+		  		uid,
+                id
+		  	}
+		})
+  	},
+
  	postRecipes: function(query,id){
 
 		return axios({

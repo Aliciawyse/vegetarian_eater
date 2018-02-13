@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import API from "../../api/API.js";
 
 
 class SaveButton extends Component {
@@ -7,17 +8,20 @@ class SaveButton extends Component {
         super(props)
         this.state={
             clicked: 'false',
-            text: 'Save?'
+            text: 'Save?',
+            value:'not saved',
+            saved:[],
+            unsaved:[]
         }
     }
 
-    //let clicked = this.state.clicked;
+    //get id props from parent
 
     render() {
-
+        let id = this.props.id
         return (
           <div>
-            <button className={this.state.clicked} onClick={this.onClick}>{this.state.text}</button>
+            <button className={this.state.clicked} id = {id} value= {this.state.value} onClick={this.onClick}>{this.state.text}</button>
             </div>
 
         )
@@ -25,23 +29,26 @@ class SaveButton extends Component {
 
 
     onClick = event => {
+        let id = this.props.id
     	  if(this.state.clicked == 'true'){
       	    this.setState({ 
       		      clicked: 'false',
-                text: 'Save?'
+                text: 'Save?',
+                value: 'not saved'
       	    });
-            console.log(this.state.clicked)
+            console.log(this.props.uid)
+            API.savingRecipes('unsave',this.props.uid, id).then(response=>(console.log(response)))
         }
         else if (this.state.clicked =='false'){
       	    this.setState({
         	      clicked: 'true',
-                text: 'Unsave?'
+                text: 'Unsave?',
+                value:'saved'
       	    });
-            console.log(this.state.clicked)
+            console.log(this.props.uid)
+            API.savingRecipes('save',this.props.uid,id).then(response=>(console.log(response)))
         }
         else undefined;
     }
 };
 export default SaveButton;
-
-
