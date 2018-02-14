@@ -20,9 +20,14 @@ class Findrec extends Component {
 
     handleInputChange = event => {
 
+
+
         let value = event.target.value;
+
+        const name = event.target.name;
+
         this.setState({
-            search: value
+            [name]: value
         });
     };
 
@@ -74,7 +79,8 @@ class Findrec extends Component {
                           <form className="form" style={{marginTop:"2%"}}>
 
                               <Input
-                                  name="search"
+                                  name='search'
+                                  value={this.state.search}
                                   type="text"
                                   onChange={this.handleInputChange}
                                   placeholder="Enter a keyword to search recipes"
@@ -105,12 +111,6 @@ class Findrec extends Component {
                                   <Card.Header>
                                       <Card.Header.Title>
                                           {recipe.recname}
-                                          {/*<a onClick={this.renderLikeunLike}>
-                                          <FontAwesome
-                                          className='far fa-heart'
-                                          value='false'
-                                          />
-                                          </a>*/}
                                           <SaveButton
                                           id={ this.state.arr[index] }
                                           uid={this.state.uid}

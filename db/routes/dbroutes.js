@@ -12,14 +12,14 @@ module.exports = function (app){
         console.log(req.body.query)
 
         let resObj = {
-          title: req.body.query.title,
-          link:req.body.query.link,
-          instructions:req.body.query.intr
+            title: req.body.query.title,
+            link:req.body.query.link,
+            instructions:req.body.query.intr
         }
 
         let ingrs = req.body.query.ingr
-       // console.log(ingrs)
-        //console.log(resObj)
+        console.log(ingrs)
+        console.log(resObj)
 
 
         db.Recipes.create(resObj).then(function(resp){
@@ -33,23 +33,21 @@ module.exports = function (app){
                 db.Ingredients.create(ingrs[i]).then(function(ingredient){
                      // console.log("1 ingredient adeded document inserted");
                       //console.log(ingredient._id)
-                      let ingredientID = ingredient._id
-                      db.Recipes.findOneAndUpdate({_id: recid}, { $push: { ingredients: ingredientID } }, { new: true })
-                          .then(function(Recipe) {
+                    let ingredientID = ingredient._id
+                    db.Recipes.findOneAndUpdate({_id: recid}, { $push: { ingredients: ingredientID } }, { new: true })
+                    .then(function(Recipe) {
                       
-                               console.log(Recipe)
-                              //console.log("results added to recent restaurants searches")
-                          })
-
-                  })
+                        console.log(Recipe)
+                        console.log("recipe updated with ingredient")
+                    })
+                })
               }
-              console.log(UserID)
-              db.Users.findOneAndUpdate({id: UserID}, { $push: { postedrec: recid } }, { new: true })
-              .then(function(User){
+            console.log(UserID)
+            db.Users.findOneAndUpdate({id: UserID}, { $push: { postedrec: recid } }, { new: true })
+            .then(function(User){
                 console.log(User)
-              })
-
-          })
+            })
+        })
     })
 
 
@@ -77,15 +75,17 @@ module.exports = function (app){
         
         for(let i = 0; i < restaurants.length; i ++){
             //console.log('\n restaurant ' + i + restaurants[i] + '\n \n \n')
-            //console.log(JSON.stringify(restaurants[i], null, '   '))
+            console.log(JSON.stringify(restaurants[i], null, '   '))
             //let responseObject = restaurants[i]
             let restObj ={
-              id:restaurants[i].id,
-              info: {
-                name: restaurants[i].name,
-                url:restaurants[i].url,
-                loc: restaurants[i].location,
-              }
+                id:restaurants[i].id,
+                info: {
+                    name: restaurants[i].name,
+                    url:restaurants[i].url,
+                    loc: restaurants[i].location,
+                    img:restaurants[i].photos_url,
+                    menu: restaurants[i].menu_url
+                }
             }
 
            // console.log(restObj)
@@ -99,55 +99,11 @@ module.exports = function (app){
                 //console.log(restaurant._id +'\n')*/
           
               //console.log("upsert")
-            db.Restaurants.findOneAndUpdate({resID: restObj.id, restaurantinfo: restObjStrg }, 
-                { resID: restObj.id, restaurantinfo: restObjStrg }, 
-                { upsert: true }).then(function(restaurant){
-                  
-                //console.log(restaurant)
-                  //console.log("1 restaurant document inserted\n");
-                let restID = restaurant._id
-                //console.log(restID)
-                  //console.log(userID)
-                db.Users.findOne({id: userID}).then(function(resultss){
-                    //console.log(resultss.recentres.length)
-                    userRest = resultss.recentres
-                    //console.log('user Restaurants', userRest)
-                    if(resultss.recentres.length === 0 ){
-                        console.log('no recipes, push to new user')
-                        //console.log(restID)
-                        db.Users.findOneAndUpdate({id: userID}, { $push: { recentres: restID } }, { new: true })
-                        .then(function(User) {
-                
-                            //console.log(User)
-                            //console.log("results added to recent restaurants searches")
-                        })
-
-                    }
-                    else if (resultss.recentres.length > 0){
-
-                        for (let i = 0; i < resultss.recentres.length; i++){
-                            console.log('there are recipes on user!')
-                            console.log(resultss.recentres[i],restID)
-                            if (resultss.recentres[i] == restID){
-                                //console.log(userRest[i], restID)
-                                console.log('this one is already attached to user')
-                            }
-                        }
-                    }
-                    else{
-                       console.log('not found on user do something')
-                      db.Users.findOneAndUpdate({id: userID}, { $push: { recentres: restaurant._id } }, { new: true })
-                          .then(function(User) {
-                  
-                              //console.log(User)
-                              //console.log("results added to recent restaurants searches")
-                          })
-                    }
-              
-                })
+            db.Restaurants.findOneAndUpdate({resID: restObj.id, restaurantinfo: restObjStrg }, { resID: restObj.id, restaurantinfo: restObjStrg }, { upsert: true })
+            .then(function(restaurant){
             })
         }
-        res.send("Done!")
+  
     })
 
 
@@ -204,27 +160,20 @@ module.exports = function (app){
         if(req.body.query=='save'){
 
           db.Users.findOne({id: user})
-                    .then(function(User) {
-
-                    function checkSaved(){
-                        for (let i = 0; i < User.savedrec.length; i++){
-                            if (recid==User.savedrec[i]){
-                              return true
-                            }
-                        }
-                    }
-                      //console.log(User)
-          })
-
-          checkSaved()
-          if (checkSaved != true){       
-          db.Users.findOneAndUpdate({id: user}, { $push: { savedrec: recid } }, { new: true })
-                    .then(function(User) {
-                      console.log(User)
+              .then(function(User) {
+                  if (User.savedrec.indexOf(recid) === -1){
+                     db.Users.findOneAndUpdate({id: user}, { $push: { savedrec: recid } }, { new: true })
+                    .then(function(Userresp) {
+                      console.log(Userresp)
                     })
-        }
-        else return
-      }
+                  }
+                  else {
+                    return
+                  }
+
+              })
+            }
+
 
         else if(req.body.query =='unsave'){
            db.Users.findOneAndUpdate({id: user}, { $pull: { savedrec: recid } }, { new: true })
@@ -236,13 +185,26 @@ module.exports = function (app){
 
     })
 
-    app.get("/getuserrests", function(req,res){
-        //console.log(req.query.id)
-        db.Users
-            .findOne({id:req.query.id})
-            .populate("recentres")
+    app.get("/getrest", function(req,res){
+        db.Restaurants
+            .findOne({})
+            .sort({x:-1})
             .then(function(result){
-                //console.log('populated restaurants', result)
+                console.log(result)
+                res.send(result)
+            })
+            .catch(function(err){
+                res.json(err)
+        })
+    })
+
+
+    app.get("/getrec", function(req,res){
+        db.Recipes
+            .findOne({})
+            .sort({x:-1})
+            .then(function(result){
+                console.log(result)
                 res.send(result)
             })
             .catch(function(err){
@@ -252,11 +214,11 @@ module.exports = function (app){
 
 
 
-    app.get("/getuserrecs", function(req,res){
+    app.get("/savedrecipes", function(req,res){
         //console.log(req.query.id)
         db.Users
             .findOne({id:req.query.id})
-            .populate("recentrec")
+            .populate("savedrec")
             .then(function(result){
                 console.log(result)
                 res.send(result)

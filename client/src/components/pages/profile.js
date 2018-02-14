@@ -1,6 +1,9 @@
-import React from "react";
+import React, { Component } from "react";
 import {Card, Content, Container, Section, SubTitle} from 'reactbulma'
 import API from "../../api/API.js";
+import Saves from "./savecard.js"
+import Posts from "./postedcard.js"
+
 
 const leftPanelStyle = {
     marginBottom: "1.5%",
@@ -14,66 +17,93 @@ const cardSpacing = {
 };
 
 
-const findUserRestaurants = (id) => {
-    return API.getrecentRest(id)
-        .then(res => {
-            console.log(res)
-            return res.data // unstringfy this before return
-        })
-        .catch(err => console.log(err));
-};
-
-
-const findUserRecipePost = (id) => {
-        API.getPostedRecipes(id)
-            .then(res => {  
-                console.log("recipes posted",res)
-                return(res.data)
-            })
-            .catch(err => console.log(err));
-    }
-
-const findUserRecipes = (id) => {
-        API.getrecentRecs(id)
-            .then(res => {
-                console.log("recent recipes",res)
-                return(res)
-            })
-            .catch(err => console.log(err));
-    }
-
-
-class Profile extends React.Component {
+class Profile extends Component {
 
     constructor(props) {
-        super(props);
+        super(props)
+
+        this.state={
+            option: "",
+            results: [], 
+            UserID:"" ,
+            recs:[],
+            rests:[],
+            render:""       
+        }
     }
 
+
+ findUserRecipePost = (id) => {
+        API.getPostedRecipes(id)
+            .then(res => {  
+                //console.log("recipes posted",res.data.postedrec)
+                let posted = res.data.postedrec
+                this.setState({
+                   recs: posted
+
+                })
+                console.log('state',this.state.recs)
+            })
+            .catch(err => console.log(err));
+    }
+
+findUserRecipes = (id) => {
+        API.getSavedRecs(id)
+            .then(res => {
+
+                 this.setState({
+                   rests: res.data.savedrec.map((recipe)=>JSON.parse(recipe.recipeinfo))
+                })
+                console.log("saved recipes",res.data.savedrec)
+            })
+            .catch(err => console.log(err));
+    }
+
+    renderPostedRecipes = (event) =>{
+
+        console.log('state',this.state.recs)
+
+     this.setState({
+                results: this.state.recs,
+                render:'posted'
+            })   
+
+    }
+
+    renderSavedRecipes = (event) =>{
+
+         console.log('state',this.state.rests)
+
+     this.setState({
+                results: this.state.rests,
+                render:'saved'
+            })   
+
+
+    }
 
     componentWillMount() {
         let userid = localStorage.getItem('id');
+        this.findUserRecipes(userid)
+        this.findUserRecipePost(userid)
 
-        findUserRestaurants(userid).then((data) => {
             this.setState({
-                restaurants: data.recentres.map((restaurant) => JSON.parse(restaurant.restaurantinfo))
+                UserID: userid
             })
-
-        })
-
-        /*findUserRecipes(userid).then((data) => {
-            this.setState({
-                recipes: data.recentres.map((restaurant) => JSON.parse(restaurant.restaurantinfo))
-            })
-
-        })*/
         };
 
-    
-    render() {
-        // this.findUserRestaurants(userid)
-        // this.findUserRecipes(userid)
-        // this.findUserRecipePost(userid)
 
+    render() {
+
+        let div = null
+        let resultforrender = this.state.results
+
+        if (this.state.render=='posted'){
+            div = <Posts results = {resultforrender}></Posts>
+        }
+        else if (this.state.render=='saved'){
+            div = <Saves results = {resultforrender}></Saves>
+        }
         return (
             <div style={leftPanelStyle}>
 
@@ -96,7 +126,7 @@ class Profile extends React.Component {
                     <Card style={cardSpacing}>
                         <Card.Header>
                             <Card.Header.Title>
-                                Recent restaurant searches
+                               <a onClick = {this.renderSavedRecipes}> Saved Recipes </a>
                             </Card.Header.Title>
                         </Card.Header>
                         {/*<Card.Content>*/}
@@ -109,7 +139,7 @@ class Profile extends React.Component {
                     <Card style={cardSpacing}>
                         <Card.Header>
                             <Card.Header.Title>
-                                Recent recipe searches 
+                                <a onClick = {this.renderPostedRecipes}> Posted Recipes </a>
                             </Card.Header.Title >
                         </Card.Header>
                         {/*<Card.Content>*/}
@@ -126,21 +156,17 @@ class Profile extends React.Component {
                     <Card>
                         <Card.Header>
                             <Card.Header.Title>
-                                Latest interests
+                                Latest Activity
                             </Card.Header.Title>
+                            <Card.Content>
+                            <Content>
+                            Select one of the options to the left to view your latest activity
+                            </Content>
+                            </Card.Content>
                         </Card.Header>
                         <Card.Content>
                             <Content>
-
-                                {this.state && this.state.restaurants && this.state.restaurants.map(restaurant => {
-                                    return (
-                                        <div>
-                                           <a href={restaurant.url}> <SubTitle>{restaurant.name}</SubTitle></a>
-                                        </div>
-                                    )
-                                })
-                                }
-
+                                {div}
                             </Content>
                         </Card.Content>
                     </Card>

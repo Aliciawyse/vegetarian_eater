@@ -11,7 +11,8 @@ var SearchRecSchema = new Schema({
   recipeinfo: { type: String,
   required: true
     // `body` must be of type String
-  }
+  },
+date: { type: Date, default: Date.now }
 });
 
 // This creates our model from the above schema, using mongoose's model method

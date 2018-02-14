@@ -37,6 +37,10 @@ handleFormSubmit = event => {
       API.getCity(query)
       .then(res => {
         console.log(res)
+        this.setState({
+        location: "",
+        results: res.data
+        });
         let id = localStorage.getItem('id')
         API.postResSearch(res, id).then(resp => {
             //console.log(res)
@@ -44,9 +48,6 @@ handleFormSubmit = event => {
       })
       .catch(err => console.log(err));
     }
-    this.setState({
-      location: ""
-    });
   };
 
     searchCurLoc = event => {
@@ -140,6 +141,7 @@ render() {
                           <div style={{display:"inline-block", width:"20%", margin:"3%" }}>
                               <Card>
                                   <Card.Header>
+
                                       <Card.Header.Title>
                                           {restuarant.name}
                                       </Card.Header.Title>
@@ -149,6 +151,8 @@ render() {
                                           {restuarant.cuisines}
                                           <br></br>
                                           <small>{restuarant.location.locality_verbose}</small>
+                                          <br></br>
+                                          <a target="_blank" href = {restuarant.menu_url} ><strong>Menu</strong></a>
                                       </Content>
                                   </Card.Content>
                               </Card>

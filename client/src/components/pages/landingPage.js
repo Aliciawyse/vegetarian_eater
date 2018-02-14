@@ -8,7 +8,8 @@ import { Section, Container, Title, SubTitle, Input, Button, Hero} from 'reactbu
 
 
 class LandingPage extends React.Component {
-    // Set the components initial state...
+    // Set the components initial state..
+
 
     render() {
 
@@ -114,6 +115,7 @@ class LandingPage extends React.Component {
             console.log("An error occurred creating the user: " + error.message);
         });
     }
+
 }
 
 export default LandingPage;

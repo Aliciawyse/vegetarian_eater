@@ -97,19 +97,26 @@ export default {
 		});
 	},
 
-	getrecentRest: function(id){
+	getrecentRest: function(){
   	
 	 	return axios({
 		  	method: 'get',
-		  	url: '/getuserrests',
-		  	params: {id:id}
+		  	url: '/getrest',
 		});
 	},
-	getrecentRecs: function(id){
+
+	getrecentRecs: function(){
   	
 	 	return axios({
 		  	method: 'get',
-		  	url: '/getuserrecs',
+		  	url: '/getrec',
+		});
+	},
+	getSavedRecs: function(id){
+  	
+	 	return axios({
+		  	method: 'get',
+		  	url: '/savedrecipes',
 		  	params: {id:id}
 		});
 	}

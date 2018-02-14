@@ -2,6 +2,8 @@ import React from "react";
 import { Link, Route } from "react-router-dom";
 import { Container, Card, Content, Section, Image, Title, SubTitle} from 'reactbulma';
 import $ from "jquery";
+import API from "../../api/API.js"
+
 
 //A better way to add style for cleaner code.
 const containerStyle = {
@@ -9,7 +11,40 @@ const containerStyle = {
     justifyContent:"space-evenly"
 };
 
-const Dashboard = ({match}) =>
+
+const Dashboard = ({match}) => {
+
+
+
+const findrest = () =>{
+    API.getrecentRest().then(function(res){
+        console.log(JSON.parse(res.data.restaurantinfo))
+        let restaurant = JSON.parse(res.data.restaurantinfo)
+        console.log(restaurant)
+
+        return restaurant
+
+    })
+
+}
+
+const findrec = () =>{
+    API.getrecentRecs().then(function(res){
+        console.log(res.data)
+
+        let recipe = res.data
+        return recipe
+
+    })
+
+}
+
+findrest()
+findrec()
+
+
+
+    return (
 
 
     <div>
@@ -95,7 +130,11 @@ const Dashboard = ({match}) =>
                 {/*<Link to={`${match.url}/logout`}>Logout</Link>*/}
             {/*</li>*/}
         {/*</ul>;*/}
-    </div>;
+    </div>
+
+    )
+
+}
 
 
 

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import API from "../../api/API.js"
-import { Section, Input, Button, Title} from 'reactbulma';
+import { Section, Input, Button, Title, Textarea} from 'reactbulma';
 
 var axios = require("axios");
 
@@ -138,7 +138,7 @@ render() {
                       </div>
                   ))}
                   <Button style={inputSpacing} type="button" onClick={this.handleAddIngredient}>Add Ingredient</Button>
-                  <Input
+                  <Textarea
                       style={inputSpacing}
                       name="instructions"
                       value={this.state.instructions}
