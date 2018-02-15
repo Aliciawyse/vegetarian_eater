@@ -167,6 +167,7 @@
     "buffer-xor": "^1.0.3",
     "builtin-modules": "^1.1.1",
     "builtin-status-codes": "^3.0.0",
+    "bulma": "^0.6.2",
     "bytes": "^3.0.0",
     "caller-path": "^0.1.0",
     "callsites": "^2.0.0",
