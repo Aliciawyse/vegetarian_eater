@@ -3,7 +3,6 @@ import SaveButton from "./saveBut.js";
 import $ from "jquery";
 import React, { Component } from "react";
 import { Section, Container, Title, SubTitle, Input, Button, Hero, Card, Content, Icon} from 'reactbulma'
-import FontAwesome from 'react-fontawesome'
 
 
 class Findrec extends Component {
