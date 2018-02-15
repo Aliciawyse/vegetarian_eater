@@ -43,7 +43,8 @@ class Profile extends Component {
 
                 })
                 console.log('state',this.state.recs)
-            })
+
+             })
             .catch(err => console.log(err));
     }
 

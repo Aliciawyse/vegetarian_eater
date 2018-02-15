@@ -18,12 +18,6 @@ class appContainer extends React.Component {
 
     }
 
-    componentDidMount(){
-
-        console.log(this.username, "NAME!!!");
-
-    }
-
     render() {
         const match = this.props.match;
         return(
@@ -57,7 +51,7 @@ class appContainer extends React.Component {
 
                 {/* defining sub-routes */}
                 <Route path={`${match.url}/profile`} component={Profile} />
-                <Route path={`${match.url}/login`} component={Login} />
+                {/*<Route path={`${match.url}/login`} component={Login} />*/}
                 <Route path={`${match.url}/find-recipes`} component={Findrec} />
                 <Route path={`${match.url}/find-restaurants`} component={Findres} />
                 <Route path={`${match.url}/post-recipes`} component={Postrec} />
