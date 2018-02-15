@@ -234,7 +234,12 @@ module.exports = function (app){
         console.log(req.query[0])
         db.Users
             .findOne({id:req.query[0]})
-            .populate("postedrec")
+            .populate({
+                path: "postedrec",
+                populate:{
+                    path: "ingredients"
+                }
+                })
             .then(function(result){
                 //console.log(result)
                 res.json(result)
