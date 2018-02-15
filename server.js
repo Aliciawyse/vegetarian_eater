@@ -41,9 +41,6 @@ require("./db/routes/dbroutes.js")(app)
 require("./api/routes/recipesAPI.js")(app)
 
 
-
-var mongoose = require("mongoose");
-
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
 

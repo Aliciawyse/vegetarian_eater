@@ -1,12 +1,10 @@
 
 var mongoose = require("mongoose");
 var axios = require("axios");
+
 const db = require("../models");
-
-
 // Routes
 module.exports = function (app){
-// A GET route for scraping the abcnews website
 
     app.post("/posting-recipe", function(req, res) {
        
@@ -23,7 +21,7 @@ module.exports = function (app){
         console.log(resObj)
 
 
-        models.Recipes.create(resObj).then(function(resp){
+        db.Recipes.create(resObj).then(function(resp){
             let UserID = req.body.id
             //console.log("1 recipe document inserted");
             res.send(resp)
@@ -31,13 +29,14 @@ module.exports = function (app){
             let recid = resp._id
             //console.log(recid)
             for(let i = 0; i < ingrs.length; i++){
-                models.Ingredients.create(ingrs[i]).then(function(ingredient){
+                db.Ingredients.create(ingrs[i]).then(function(ingredient){
                      // console.log("1 ingredient adeded document inserted");
                       //console.log(ingredient._id)
                     let ingredientID = ingredient._id
                     db.Recipes.findOneAndUpdate({_id: recid}, { $push: { ingredients: ingredientID } }, { new: true })
-                    .then(function(Recipe) {                     
-                       console.log(Recipe)
+                    .then(function(Recipe) {
+                      
+                        console.log(Recipe)
                         console.log("recipe updated with ingredient")
                     })
                 })
@@ -56,7 +55,7 @@ module.exports = function (app){
     
         console.log(req.body)
 
-        models.Users.create(req.body[0]).then(function(resp){
+        db.Users.create(req.body[0]).then(function(resp){
               console.log("1 user document inserted");
               res.send("1 user document inserted")
         }) 
@@ -72,6 +71,8 @@ module.exports = function (app){
         //console.log('this is the restuarants array',restaurants)
         
         let userID = req.body.id
+
+
         
         for(let i = 0; i < restaurants.length; i ++){
             //console.log('\n restaurant ' + i + restaurants[i] + '\n \n \n')
@@ -94,7 +95,11 @@ module.exports = function (app){
             //console.log(restObjStrg)
 
 
-        
+           /* db.Restaurants.create({resID: restObj.id, restaurantinfo: restObjStrg }).then(function(restaurant){
+               // console.log("1 restaurant document inserted\n");
+                //console.log(restaurant._id +'\n')*/
+          
+              //console.log("upsert")
             db.Restaurants.findOneAndUpdate({resID: restObj.id, restaurantinfo: restObjStrg }, { resID: restObj.id, restaurantinfo: restObjStrg }, { upsert: true })
             .then(function(restaurant){
             })
@@ -134,6 +139,9 @@ module.exports = function (app){
             //console.log(recObjStr)
 
             db.SearchedRecipes.findOneAndUpdate({recipeinfo: recObjStr},{recipeinfo: recObjStr },{ upsert: true }).then(function(recipe){
+                console.log(recipe)
+                //console.log("1 recipe document inserted\n");
+                //console.log(recipe._id +'\n')
                 recAppArr.push(recipe)
                 console.log(i,recAppArr)
                 if(i == 9){
@@ -209,7 +217,7 @@ module.exports = function (app){
 
     app.get("/savedrecipes", function(req,res){
         //console.log(req.query.id)
-        models.Users
+        db.Users
             .findOne({id:req.query.id})
             .populate("savedrec")
             .then(function(result){
@@ -224,7 +232,7 @@ module.exports = function (app){
 
     app.get("/search-postedrecipes", function(req,res){
         console.log(req.query[0])
-        models.Users
+        db.Users
             .findOne({id:req.query[0]})
             .populate("postedrec")
             .then(function(result){
