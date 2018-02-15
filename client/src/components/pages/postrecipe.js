@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import API from "../../api/API.js"
-import { Section, Input, Button, Title} from 'reactbulma';
+import { Section, Input, Button, Title, Textarea} from 'reactbulma';
 
 var axios = require("axios");
 
@@ -49,6 +49,11 @@ handleInputChange = event => {
     this.setState({
       [name]: value
     });
+  };
+
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
   };
 
   handleFormSubmit = event => {
@@ -133,7 +138,7 @@ render() {
                       </div>
                   ))}
                   <Button style={inputSpacing} type="button" onClick={this.handleAddIngredient}>Add Ingredient</Button>
-                  <Input
+                  <Textarea
                       style={inputSpacing}
                       name="instructions"
                       value={this.state.instructions}
@@ -175,13 +180,13 @@ render() {
           {/*</div>*/}
         {/*))}*/}
         {/*<button type="button" onClick={this.handleAddIngredient}>Add Ingredient</button>*/}
-          {/*<input*/}
+          {/*<textarea>*/}
             {/*name="instructions"*/}
             {/*value={this.state.instructions}*/}
             {/*type="text"*/}
             {/*onChange={this.handleInputChange}*/}
             {/*placeholder="Enter Instructions"*/}
-          {/*/>*/}
+          {/*</textarea>*/}
           {/*<button onClick={this.handleFormSubmit}>Submit</button>*/}
         {/*</form>*/}
   </div>

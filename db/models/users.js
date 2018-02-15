@@ -25,13 +25,9 @@ recentrec:[{
   type: Schema.Types.ObjectId,
   ref: "SearchedRecipes"
 }],
-recentres:[{
-  type: Schema.Types.ObjectId,
-  ref: "Restaurants"
-}],
 savedrec:[{
   type: Schema.Types.ObjectId,
-  ref: "SavedRecipes"
+  ref: "SearchedRecipes"
 }]
 });
 

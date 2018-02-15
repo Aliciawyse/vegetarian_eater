@@ -1,68 +1,72 @@
-import API from "../../api/API.js"
+import API from "../../api/API.js";
+import SaveButton from "./saveBut.js";
+import $ from "jquery";
 import React, { Component } from "react";
-import { Section, Container, Title, SubTitle, Input, Button, Hero, Card, Content} from 'reactbulma'
+import { Section, Container, Title, SubTitle, Input, Button, Hero, Card, Content, Icon} from 'reactbulma'
+import FontAwesome from 'react-fontawesome'
 
 
 class Findrec extends Component {
-  // Setting the component's initial state
-  state = {
-    search: "",
-    results: []
-  };
 
-
-handleInputChange = event => {
-    // Getting the value and name of the input which triggered the change
-    let value = event.target.value;
-    const name = event.target.name;
-
-    // Updating the input's state
-    this.setState({
-      [name]: value
-    });
-  };
-
-  handleFormSubmit = event => {
-    // Preventing the default behavior of the form submit (which is to refresh the page)
-    let search = this.state.search
-    event.preventDefault();
-    if (!this.state.search){
-      alert("Please enter a keyword");
-    } else {
-      console.log(search)
-     API.getRecipes(search)
-      .then(res => {
-        console.log(res)
-        this.setState({ results: res.data })
-
-        let id = localStorage.getItem('id')
-        API.postRecSearch(res, id).then(resp => {
-            console.log(resp)
-        }).catch(err => console.log(err))
-      })
-      .catch(err => console.log(err));
+    constructor(props) {
+        super(props)
+        this.state={
+            search: "",
+            results: [],
+            arr:[],
+            uid:""
+        }
     }
 
-    this.setState({
-      search: ""
-    });
-  };
+    handleInputChange = event => {
+
+
+
+        let value = event.target.value;
+
+        const name = event.target.name;
+
+        this.setState({
+            [name]: value
+        });
+    };
+
+
+
+    handleFormSubmit = event => {
+
+        event.preventDefault();
+
+        let search = this.state.search
+
+        if (!search){
+            alert("Please enter a keyword");
+        } 
+        else {
+            console.log(search)
+            API.getRecipes(search)
+            .then(res => {
+                //console.log(res)
+
+                let id = localStorage.getItem('id')
+                API.postRecSearch(res, id).then(resp => {
+
+                    console.log(resp,resp.data[0])
+                    this.setState({ 
+                        results: resp.data.map((recipe)=>JSON.parse(recipe.recipeinfo)),
+                        search: "",
+                        arr: resp.data.map((recipe)=>(recipe._id)),
+                        uid:localStorage.getItem('id')
+                    })
+                }).catch(err => console.log(err))
+            }).catch(err => console.log(err));
+        }
+    };
+
 
   render() {
-    // Notice how each input has a `value`, `name`, and `onChange` prop
     return (
       <div>
-        {/*<form className="form">*/}
-          {/*<input*/}
-            {/*name="search"*/}
-            {/*value={this.state.search}*/}
-            {/*type="text"*/}
-            {/*onChange={this.handleInputChange}*/}
-            {/*placeholder="city, state"*/}
-          {/*/>*/}
-          {/*<button onClick={this.handleFormSubmit}>Submit</button>*/}
-        {/*</form>*/}
-
           <Section>
               <Hero>
                   <Hero.Body>
@@ -75,11 +79,11 @@ handleInputChange = event => {
                           <form className="form" style={{marginTop:"2%"}}>
 
                               <Input
-                                  name="search"
+                                  name='search'
                                   value={this.state.search}
                                   type="text"
                                   onChange={this.handleInputChange}
-                                  placeholder="Search recipes"
+                                  placeholder="Enter a keyword to search recipes"
                               />
 
                               <Button style={{marginTop:"1.3%"}} primary onClick={this.handleFormSubmit}>Search!</Button>
@@ -96,22 +100,29 @@ handleInputChange = event => {
           <Hero warning>
               <Container style={{textAlign:"center"}}>
 
-                  {this.state.results.map(recipe => {
+                  {this.state.results.map((recipe,index )=> {
+
                       return (
                           //for each restaurant data object make a ui compoment
 
                           <div style={{display:"inline-block", width:"20%", margin:"3%" }}>
                               <Card>
-                                  <Card.Image src={recipe.recipe.image} square='4by3' />
+                                  <Card.Image src={recipe.image} square='4by3' />
                                   <Card.Header>
                                       <Card.Header.Title>
-                                          {recipe.recipe.label}
+                                          {recipe.recname}
+                                          <SaveButton
+                                          id={ this.state.arr[index] }
+                                          uid={this.state.uid}
+                                          >
+                                          </SaveButton>
+
                                       </Card.Header.Title>
                                   </Card.Header>
+                                  <a  target="_blank" href={recipe.url}>View Recipe</a>
 
                               </Card>
                           </div>
-
                       )
                   })}
               </Container>
@@ -122,6 +133,7 @@ handleInputChange = event => {
 }
 
 export default Findrec;
+
 
 
  

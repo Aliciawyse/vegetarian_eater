@@ -27,7 +27,7 @@ class appContainer extends React.Component {
                     <Level.Left>
                         <Level.Item>
                             <SubTitle is='5'>
-                                <strong style={{fontSize: "25px", color: "white"}}>Vegetarian Eater</strong>
+                                <a> <strong style={{fontSize: "25px", color: "white"}} onClick={this.goHome} >Vegetarian Eater</strong></a>
                             </SubTitle>
                         </Level.Item>
                     </Level.Left>
@@ -35,9 +35,9 @@ class appContainer extends React.Component {
                     <Level.Right>
                         <Level.Item>
 
-                            <Icon onClick={this.myProfile}>
+                            <a><Icon onClick={this.myProfile}>
                                 <i style={{fontSize: "28px"}} className="fa fa-user fa-3"/>
-                            </Icon>
+                            </Icon></a>
                             <SubTitle style={{color:"white"}}>
                                 Welcome, {this.username}!
                             </SubTitle>
@@ -64,6 +64,14 @@ class appContainer extends React.Component {
         e.preventDefault();
         const push = this.props.history.push;
         push(`${this.props.match.url}/profile`);
+
+    }
+
+
+    goHome = (e) => {
+        e.preventDefault();
+        const push = this.props.history.push;
+        push(`${this.props.match.url}`);
 
     }
 }

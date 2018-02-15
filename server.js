@@ -41,6 +41,35 @@ require("./db/routes/dbroutes.js")(app)
 require("./api/routes/recipesAPI.js")(app)
 
 
+
+var mongoose = require("mongoose");
+
+// Set mongoose to leverage built in JavaScript ES6 Promises
+// Connect to the Mongo DB
+
+mongoose.Promise = Promise;
+
+if(process.env.MONGODB_URI){
+	mongoose.connect(process.env.MONGODB_URI)
+}
+else{
+mongoose.connect("mongodb://localhost/vegetarianeater_db")
+}
+
+var database = mongoose.connection;
+
+database.on('error', function(err){
+	console.log(err)
+})
+
+database.once('open',function(){
+	console.log('success')
+})
+
+
+
+
+
 // Send every request to the React app
 // Define any API routes before this runs
 app.get("*", function(req, res) {
