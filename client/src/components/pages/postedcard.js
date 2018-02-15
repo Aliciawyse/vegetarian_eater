@@ -28,6 +28,8 @@ class Posts extends Component {
 
                                            </ul>
                                            <strong><p>How to Make?</p></strong><p> {recipeposted.instructions}</p>
+                                           <br></br>
+                                           <br></br>
                                         </div>
                                     )
                                 })
