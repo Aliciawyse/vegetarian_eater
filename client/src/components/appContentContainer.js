@@ -7,7 +7,6 @@ import Login from "./pages/login";
 import Findrec from "./pages/findrecipe";
 import Findres from "./pages/findrestaurant";
 import Postrec from "./pages/postrecipe";
-import 'font-awesome/css/font-awesome.min.css';
 
 
 class appContainer extends React.Component {
