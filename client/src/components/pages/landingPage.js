@@ -10,7 +10,9 @@ import { Section, Container, Title, SubTitle, Input, Button, Hero} from 'reactbu
 class LandingPage extends React.Component {
     // Set the components initial state..
 
-
+componentDidMount() {
+    document.title = "Vegetarian Eater";
+  }
     render() {
 
         return (
