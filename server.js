@@ -25,9 +25,25 @@ var mongoose = require("mongoose");
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
+
 mongoose.Promise = Promise;
-mongoose.connect("mongodb://localhost/vegetarianeater_db", {
-});
+
+if(process.env.MONGODB_URI){
+	mongoose.connect(process.env.MONGODB_URI)
+}
+else{
+mongoose.connect("mongodb://localhost/vegetarianeater_db")
+}
+
+var database = mongoose.connection;
+
+database.on('error', function(err){
+	console.log(err)
+})
+
+database.once('open',function(){
+	console.log('success')
+})
 
 
 
