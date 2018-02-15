@@ -19,6 +19,10 @@ class appContainer extends React.Component {
 
     }
 
+    componentDidMount() {
+    document.title = "Vegetarian Eater";
+  }
+
     render() {
         const match = this.props.match;
         return(
