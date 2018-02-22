@@ -27,7 +27,7 @@ class Profile extends Component {
             results: [], 
             UserID:"" ,
             recs:[],
-            rests:[],
+            savedrecs:[],
             render:""       
         }
     }
@@ -42,7 +42,7 @@ class Profile extends Component {
                    recs: posted
 
                 })
-                console.log('state',this.state.recs)
+                console.log('posted recipes',this.state.recs)
 
              })
             .catch(err => console.log(err));
@@ -53,7 +53,7 @@ findUserRecipes = (id) => {
             .then(res => {
 
                  this.setState({
-                   rests: res.data.savedrec.map((recipe)=>JSON.parse(recipe.recipeinfo))
+                   savedrecs: res.data.savedrec
                 })
                 console.log("saved recipes",res.data.savedrec)
             })
@@ -62,7 +62,7 @@ findUserRecipes = (id) => {
 
     renderPostedRecipes = (event) =>{
 
-        console.log('state',this.state.recs)
+        //console.log('state',this.state.recs)
 
      this.setState({
                 results: this.state.recs,
@@ -73,10 +73,9 @@ findUserRecipes = (id) => {
 
     renderSavedRecipes = (event) =>{
 
-         console.log('state',this.state.rests)
 
      this.setState({
-                results: this.state.rests,
+                results: this.state.savedrecs,
                 render:'saved'
             })   
 

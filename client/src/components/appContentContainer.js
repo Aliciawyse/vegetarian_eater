@@ -7,6 +7,8 @@ import Login from "./pages/login";
 import Findrec from "./pages/findrecipe";
 import Findres from "./pages/findrestaurant";
 import Postrec from "./pages/postrecipe";
+import 'font-awesome/css/font-awesome.min.css';
+
 
 
 class appContainer extends React.Component {
@@ -16,6 +18,10 @@ class appContainer extends React.Component {
         this.username = window.localStorage.getItem("the user");
 
     }
+
+    componentDidMount() {
+    document.title = "Vegetarian Eater";
+  }
 
     render() {
         const match = this.props.match;

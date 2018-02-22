@@ -39,14 +39,16 @@ export default {
 	   	});
   	},
 
-  	savingRecipes:function(query,uid,id){
+  	savingRecipes:function(query,uid,id,url,image){
   		return axios({
 	  		method: 'post',
 		  	url: '/saving-recipe',
 		  	data: {
 		  		query,
 		  		uid,
-                id
+                id,
+                url,
+                image
 		  	}
 		})
   	},

@@ -17,22 +17,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
 app.use(bodyParser.json());
 
-const databaseUri = 'mongodb://localhost/vegetarian_db';
-
-if(process.env.MONGODB_URI) {
-  mongoose.connect(process.env.MONGODB_URI);
-} else {
-  mongoose.connect(databaseUri);
-}
-
-db.on('error', function(err) {
-  console.log("Mongoose error: ", err);
-});
-
-db.once('open', function(){
-  console.log("Mongoose connection succesful.")
-});
-
 // Use apiRoutes
 require("./api/routes/restaurantsAPI.js")(app)
 require("./db/routes/dbroutes.js")(app)

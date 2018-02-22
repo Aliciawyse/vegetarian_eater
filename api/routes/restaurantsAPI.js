@@ -29,21 +29,21 @@ module.exports = function (app){
             zomato.search({
                 entity_id: cityid,
                 entity_type: 'city',
-                count:20,
+                count:10,
                 cuisines: '308',
                 sort: 'rating',
                 order: 'desc'
             })
             .then(function(result) {
-               // console.log('hello',result);
+                console.log('hello',result);
                 res.send(result.restaurants)
             })
             .catch(function(err) {
-               // console.error(err);
+               //console.error(err);
             });
         })
         .catch(function(err) {
-           // console.error(err);
+           //console.error(err);
         });
     });
 
@@ -52,16 +52,16 @@ module.exports = function (app){
         console.log(req.query.lat, req.query.lon)
         zomato.search({
             q:req.body,
-            count: 20,
+            count: 10,
             lat:req.query.lat,
             lon:req.query.lon,
             radius: 1500.9,
             cuisines: 308,
-            sort: 'rating',
+            sort: 'radius',
             order: 'desc'
         })
         .then(function(data) {
-            //console.log(data.restaurants);
+            console.log(data.restaurants);
             res.send(data.restaurants)
         })
         .catch(function(err) {

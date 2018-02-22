@@ -13,10 +13,23 @@ class Posts extends Component {
     render() {
         return (
 
-            this.props.results.map(recipeposted => {
+            this.props.results.map((recipeposted,key) => {
                                     return (
                                         <div>
-                                           <a href={recipeposted.link}> <SubTitle>{recipeposted.title}</SubTitle></a>
+                                          <a href={recipeposted.link}> <SubTitle><strong>{recipeposted.title}</strong></SubTitle></a>
+                                           <ul>
+                                           {this.props.results[key].ingredients.map(ingred => {
+                                                return(
+                                                        <div>
+                                                       <li>{ingred.ingredient}</li>
+                                                       </div> 
+                                                   )
+                                            })}
+
+                                           </ul>
+                                           <strong><p>How to Make?</p></strong><p> {recipeposted.instructions}</p>
+                                           <br></br>
+                                           <br></br>
                                         </div>
                                     )
                                 })

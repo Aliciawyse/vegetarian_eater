@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import API from "../../api/API.js";
+import { Section, Container, Title, SubTitle, Input, Button, Hero, Card, Content, Icon} from 'reactbulma'
+
 
 
 class SaveButton extends Component {
@@ -21,6 +23,8 @@ class SaveButton extends Component {
         let id = this.props.id
         return (
           <div>
+          <br></br>
+          <br></br>
             <button className={this.state.clicked} id = {id} value= {this.state.value} onClick={this.onClick}>{this.state.text}</button>
             </div>
 
@@ -37,7 +41,7 @@ class SaveButton extends Component {
                 value: 'not saved'
       	    });
             console.log(this.props.uid)
-            API.savingRecipes('unsave',this.props.uid, id).then(response=>(console.log(response)))
+            API.savingRecipes('unsave',this.props.uid,this.props.id,this.props.url, this.props.image).then(response=>(console.log(response)))
         }
         else if (this.state.clicked =='false'){
       	    this.setState({
@@ -46,7 +50,7 @@ class SaveButton extends Component {
                 value:'saved'
       	    });
             console.log(this.props.uid)
-            API.savingRecipes('save',this.props.uid,id).then(response=>(console.log(response)))
+            API.savingRecipes('save',this.props.uid,this.props.id, this.props.url, this.props.image).then(response=>(console.log(response)))
         }
         else undefined;
     }

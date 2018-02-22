@@ -100,7 +100,7 @@ module.exports = function (app){
                 //console.log(restaurant._id +'\n')*/
           
               //console.log("upsert")
-            db.Restaurants.findOneAndUpdate({resID: restObj.id, restaurantinfo: restObjStrg }, { resID: restObj.id, restaurantinfo: restObjStrg }, { upsert: true })
+            db.Restaurants.findOneAndUpdate({resID: restObj.id}, {restaurantinfo: restObjStrg }, { resID: restObj.id, restaurantinfo: restObjStrg }, { upsert: true })
             .then(function(restaurant){
             })
         }
@@ -108,7 +108,8 @@ module.exports = function (app){
     })
 
 
-    app.post("/posting-recsearch", function(req, res) {
+    
+    /*app.post("/posting-recsearch", function(req, res) {
 
         //console.log(req.body)
         
@@ -127,64 +128,82 @@ module.exports = function (app){
             //console.log(JSON.stringify(recipes[i], null, '   '))
                 
 
-            let recObj = {
-                recname:recipes[i].recipe.label,
-                image: recipes[i].recipe.image,
-                source: recipes[i].recipe.source,
-                url:recipes[i].recipe.url
-            }
+                let recname = recipes[i].recipe.label
+                let image = recipes[i].recipe.image
+                let source = recipes[i].recipe.source
+                let url = recipes[i].recipe.url
+
+                //console.log('\n recipe' + i, recname, image,source,url +'\n')
 
 
-            let recObjStr = JSON.stringify(recObj, null, '   ')
+           // let recObjStr = JSON.stringify(recObj, null, '   ')
             //console.log(recObjStr)
 
-            db.SearchedRecipes.findOneAndUpdate({recipeinfo: recObjStr},{recipeinfo: recObjStr },{ upsert: true }).then(function(recipe){
-                console.log(recipe)
+           // db.SearchedRecipes.findOneAndUpdate({recipeinfo: recObjStr},{recipeinfo: recObjStr },{ upsert: true }).then(function(recipe){
+               // console.log(recipe)
                 //console.log("1 recipe document inserted\n");
                 //console.log(recipe._id +'\n')
-                recAppArr.push(recipe)
-                console.log(i,recAppArr)
-                if(i == 9){
-                    console.log(recAppArr)
-                    res.json(recAppArr)
-                }
-            }).catch(function(err){
-                  console.log(err)
-            });
+                //recAppArr.push(recipe)
+                //console.log(i,recAppArr)
+                //if(i == 9){
+                   // console.log(recAppArr)
+                   // res.json(recAppArr)
+                //}
+            //}).catch(function(err){
+                 // console.log(err)
+            //});
         }
-    })
+    })*/
 
       app.post("/saving-recipe", function(req, res) {
+
         console.log(req.body)
+
         let user = req.body.uid
-        let recid = req.body.id
-        if(req.body.query=='save'){
+        let name = req.body.id
+        let url = req.body.url
+        let image = req.body.image
+        let recid =""
+        //check recipes and get id then check user to see if this id is saved in user refs
+        db.SearchedRecipes.findOneAndUpdate({name: name}, {$set: {name: name, image: image, url: url}}, { upsert: true, new: true })
+        .then(function(recipe) {
 
-          db.Users.findOne({id: user})
-              .then(function(User) {
-                  if (User.savedrec.indexOf(recid) === -1){
-                     db.Users.findOneAndUpdate({id: user}, { $push: { savedrec: recid } }, { new: true })
-                    .then(function(Userresp) {
-                      console.log(Userresp)
-                    })
-                  }
-                  else {
-                    return
-                  }
+            console.log('this is supposed to be the response = ' + recipe)
 
-              })
+            recid = recipe._id
+
+            if(req.body.query=='save'){
+
+
+                db.Users.findOne({id: user})
+                .then(function(results) {
+                    console.log('\n this is the user \n'+results.savedrec)
+         
+
+                    if(results.savedrec.indexOf(recid) == -1){
+                        console.log("not in saved recipes")
+                        db.Users.findOneAndUpdate({id: user},{ $push: { savedrec: recid } }, { new: true })
+                        .then(function(resultu){
+                                console.log(resultu.savedrec)
+                        })
+                    }
+                    else{
+                            console.log('user already saved this')
+                    }
+
+                })
             }
 
 
-        else if(req.body.query =='unsave'){
-           db.Users.findOneAndUpdate({id: user}, { $pull: { savedrec: recid } }, { new: true })
-                    .then(function(User) {
-                      console.log(User)
-                    })
-        }
-
-
+            else if(req.body.query =='unsave'){
+                db.Users.findOneAndUpdate({id: user}, { $pull: { savedrec: recid } }, { new: true })
+                .then(function(User) {
+                    console.log(User)
+                })
+            }
+        })
     })
+
 
     app.get("/getrest", function(req,res){
         db.Restaurants
@@ -234,7 +253,13 @@ module.exports = function (app){
         console.log(req.query[0])
         db.Users
             .findOne({id:req.query[0]})
-            .populate("postedrec")
+            .populate({
+                path: "postedrec",
+                populate:{
+                    path: "ingredients"
+                }
+                })
+            .sort({_id:-1})
             .then(function(result){
                 //console.log(result)
                 res.json(result)

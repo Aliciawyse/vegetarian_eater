@@ -11,7 +11,8 @@ class Findres extends Component {
   // Setting the component's initial state
   state = {
     location: "",
-    results: []
+    results: [],
+    modal: 'hide'
   };
 
 
@@ -42,17 +43,13 @@ handleFormSubmit = event => {
         results: res.data
         });
         let id = localStorage.getItem('id')
-        API.postResSearch(res, id).then(resp => {
-            //console.log(res)
-        }).catch(err => console.log(err))
       })
       .catch(err => console.log(err));
     }
   };
 
     searchCurLoc = event => {
-        // Preventing the default behavior of the form submit (which is to refresh the page)
-        //console.log("test TEST!!!!!!");
+
         geolocation.getCurrentPosition((err, position) => {
 
             if (err)
@@ -61,7 +58,6 @@ handleFormSubmit = event => {
             else{
                 console.log(position)
                 //console.log("this", this);
-
                 let geoloc = position.coords
                 console.log(geoloc)
                 API.getRestaurants(geoloc)
@@ -69,10 +65,6 @@ handleFormSubmit = event => {
                 console.log(res)
                 this.setState({ results: res.data })
                 let id = localStorage.getItem('id')
-
-                API.postResSearch(res, id).then(resp => {
-                    console.log(resp)
-                })
               }).catch(err => console.log(err));
             }
 
@@ -81,33 +73,51 @@ handleFormSubmit = event => {
 
 render() {
 
+  //let div = null
+
+  /*if (this.state.modal = "show"){
+      div = <div class="modal">
+                <div class="modal-content">
+                    <p>Some text in the Modal..</p>
+                </div>
+            </div>
+  }
+
+  else if (this.state.modal = "hide"){
+     div = <div class="modal">
+                <div class="modal-content">
+                    <p>Some text in the Modal..</p>
+                </div>
+            </div>
+  }*/
+
     return (
       <div>
           <Section>
               <Hero>
                   <Hero.Body>
                       <Container>
+                         {/*{div}*/}
                           <Title>Find Restaurants</Title>
                           <SubTitle>A simple way to find restaurants that serve <strong>vegetarian</strong> meals that you love.</SubTitle>
 
-                          {/*/!*Future addition*!/*/}
-                          {/*<form style={{marginBottom:"3%"}}>*/}
-                              {/*<Input*/}
-                                  {/*style={{width:"60%"}}*/}
-                                  {/*primary*/}
-                                  {/*large id="large"*/}
-                                  {/*placeholder="Search: Tofu"*/}
-                                  {/*type="text"*/}
-                              {/*/>*/}
+                        {/*  <form style={{marginBottom:"3%"}}>
+                              <Input
+                                  style={{width:"60%"}}
+                                  primary
+                                  large id="large"
+                                  placeholder="Search: Tofu"
+                                  type="text"
+                              />
 
-                              {/*<Container style={{marginTop:"1%"}}>*/}
-                                  {/*<Button style = {buttonStyle} primary>Tofu</Button>*/}
-                                  {/*<Button style = {buttonStyle} info>Soup</Button>*/}
-                                  {/*<Button style = {buttonStyle} success>Sandwiches</Button>*/}
-                                  {/*<Button style = {buttonStyle} warning>Noodles</Button>*/}
-                                  {/*<Button style = {buttonStyle} danger>Quinoa</Button>*/}
-                              {/*</Container>*/}
-                          {/*</form>*/}
+                              <Container style={{marginTop:"1%"}}>
+                                  <Button style = {buttonStyle} primary>Tofu</Button>
+                                  <Button style = {buttonStyle} info>Soup</Button>
+                                  <Button style = {buttonStyle} success>Sandwiches</Button>
+                                  <Button style = {buttonStyle} warning>Noodles</Button>
+                                  <Button style = {buttonStyle} danger>Quinoa</Button>
+                              </Container>
+                          </form>*/}
 
                           <form className="form" style={{marginTop:"2%"}}>
                               <Input
@@ -118,7 +128,7 @@ render() {
                                   value={this.state.location}
                                   type="text"
                                   onChange={this.handleInputChange}
-                                  placeholder="City, State"
+                                  placeholder="City, State ex: Denver, Colorado"
                               />
                               <br></br>
                               <Button style={{marginTop:"1.3%"}} info onClick={this.handleFormSubmit}>
