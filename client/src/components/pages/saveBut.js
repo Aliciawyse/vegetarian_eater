@@ -12,12 +12,18 @@ class SaveButton extends Component {
             clicked: 'false',
             text: 'Save?',
             value:'not saved',
-            saved:[],
-            unsaved:[]
+            id:""  
         }
     }
 
-    //get id props from parent
+
+    componentWillReceiveProps(){
+        this.setState({
+            clicked: 'false',
+            text: 'Save?',
+            value:'not saved'  
+        })
+    }
 
     render() {
         let id = this.props.id
@@ -38,7 +44,7 @@ class SaveButton extends Component {
       	    this.setState({ 
       		      clicked: 'false',
                 text: 'Save?',
-                value: 'not saved'
+                value: 'not saved',
       	    });
             console.log(this.props.uid)
             API.savingRecipes('unsave',this.props.uid,this.props.id,this.props.url, this.props.image).then(response=>(console.log(response)))

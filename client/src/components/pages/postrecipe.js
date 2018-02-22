@@ -100,7 +100,7 @@ render() {
       <Section style={{width:"70%", margin:"0 auto"}}>
           <div>
               <div style={{marginBottom:"2%"}}>
-                  <Title>Post recipes page</Title>
+                  <Title>Post your own unique recipes here</Title>
               </div>
 
               <form className="form">

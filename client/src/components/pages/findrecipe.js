@@ -19,8 +19,6 @@ class Findrec extends Component {
 
     handleInputChange = event => {
 
-
-
         let value = event.target.value;
 
         const name = event.target.name;
@@ -46,13 +44,15 @@ class Findrec extends Component {
             API.getRecipes(search)
             .then(res => {
                 console.log(res.data)
-                 this.setState({ 
-                        results: res.data,
-                        search: "",
-                        arr: res.data,
-                        uid: localStorage.getItem('id')
-                  })
+                this.setState({ 
+                    results: res.data,
+                    search: "",
+                    arr: res.data,
+                    uid: localStorage.getItem('id'),
+                    searched: true
+                })
 
+                console.log(this.state.searched)
             }).catch(err => console.log(err));
         }
     };
@@ -78,10 +78,10 @@ class Findrec extends Component {
                                   value={this.state.search}
                                   type="text"
                                   onChange={this.handleInputChange}
-                                  placeholder="Enter a keyword to search recipes"
+                                  placeholder="Enter a keyword to search recipes ex: 'Guacamole'"
                               />
 
-                              <Button style={{marginTop:"1.3%"}} primary onClick={this.handleFormSubmit}>Search!</Button>
+                              <Button style = {{marginTop:"1.3%"}} primary onClick = {this.handleFormSubmit}>Search!</Button>
 
                           </form>
 
@@ -102,17 +102,16 @@ class Findrec extends Component {
 
                           <div style={{display:"inline-block", width:"20%", margin:"3%" }}>
                               <Card>
-                                  <Card.Image src={recipe.recipe.image} square='4by3' />
+                                  <Card.Image src = {recipe.recipe.image} square ='4by3' />
                                   <Card.Header>
                                       <Card.Header.Title>
                                           {recipe.recipe.label}
                                           <SaveButton
-                                          id={recipe.recipe.label}
+                                          id = {recipe.recipe.label}
                                           uid = {this.state.uid}
                                           url = {recipe.recipe.url}
                                           image = {recipe.recipe.image}
                                           >
-                                          <br></br>
                                           </SaveButton>
 
                                       </Card.Header.Title>

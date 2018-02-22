@@ -128,7 +128,7 @@ render() {
                                   value={this.state.location}
                                   type="text"
                                   onChange={this.handleInputChange}
-                                  placeholder="City, State ex: Denver, Colorado"
+                                  placeholder="City, State ex: 'Denver, Colorado'"
                               />
                               <br></br>
                               <Button style={{marginTop:"1.3%"}} info onClick={this.handleFormSubmit}>
