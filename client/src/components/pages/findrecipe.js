@@ -39,28 +39,24 @@ class Findrec extends Component {
         let search = this.state.search
 
         if (!search){
-            alert("Please enter a keyword");
+            alert("Please enter a keyword to search recipes");
         } 
         else {
             console.log(search)
             API.getRecipes(search)
             .then(res => {
-                //console.log(res)
-
-                let id = localStorage.getItem('id')
-                API.postRecSearch(res, id).then(resp => {
-
-                    console.log(resp,resp.data[0])
-                    this.setState({ 
-                        results: resp.data.map((recipe)=>JSON.parse(recipe.recipeinfo)),
+                console.log(res.data)
+                 this.setState({ 
+                        results: res.data,
                         search: "",
-                        arr: resp.data.map((recipe)=>(recipe._id)),
-                        uid:localStorage.getItem('id')
-                    })
-                }).catch(err => console.log(err))
+                        arr: res.data,
+                        uid: localStorage.getItem('id')
+                  })
+
             }).catch(err => console.log(err));
         }
     };
+
 
 
   render() {
@@ -106,19 +102,22 @@ class Findrec extends Component {
 
                           <div style={{display:"inline-block", width:"20%", margin:"3%" }}>
                               <Card>
-                                  <Card.Image src={recipe.image} square='4by3' />
+                                  <Card.Image src={recipe.recipe.image} square='4by3' />
                                   <Card.Header>
                                       <Card.Header.Title>
-                                          {recipe.recname}
+                                          {recipe.recipe.label}
                                           <SaveButton
-                                          id={ this.state.arr[index] }
-                                          uid={this.state.uid}
+                                          id={recipe.recipe.label}
+                                          uid = {this.state.uid}
+                                          url = {recipe.recipe.url}
+                                          image = {recipe.recipe.image}
                                           >
+                                          <br></br>
                                           </SaveButton>
 
                                       </Card.Header.Title>
                                   </Card.Header>
-                                  <a  target="_blank" href={recipe.url}>View Recipe</a>
+                                  <a  target="_blank" href={recipe.recipe.url}>View Recipe</a>
 
                               </Card>
                           </div>

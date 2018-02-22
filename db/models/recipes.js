@@ -8,9 +8,15 @@ var Schema = mongoose.Schema;
 var SearchRecSchema = new Schema({
 
   // `title` must be of type String
-  recipeinfo: { type: String,
+  name: { type: String,
   required: true
     // `body` must be of type String
+  },
+  image : {
+  	type:String
+  },
+  url:{
+  	type: String
   },
 date: { type: Date, default: Date.now }
 });
@@ -21,4 +27,3 @@ var SearchedRecipes = mongoose.model("SearchedRecipes", SearchRecSchema);
 // Export the Note model
 module.exports =  SearchedRecipes
 
- 
