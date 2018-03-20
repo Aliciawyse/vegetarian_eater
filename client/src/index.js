@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as firebase from "firebase";
+import 'font-awesome/css/font-awesome.min.css'
 
 
 // Initialize Firebase
