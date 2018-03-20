@@ -32,7 +32,7 @@ class appContainer extends React.Component {
                     <Level.Left>
                         <Level.Item>
                             <SubTitle is='5'>
-                                <a> <strong style={{fontSize: "25px", color: "white"}} onClick={this.goHome} >Vegetarian Eater</strong></a>
+                                <a><strong style={{fontSize: "25px", color: "white"}} onClick={this.goHome} >Vegetarian Eater</strong></a>
                             </SubTitle>
                         </Level.Item>
                     </Level.Left>
@@ -40,8 +40,8 @@ class appContainer extends React.Component {
                     <Level.Right>
                         <Level.Item>
 
-                            <a><Icon onClick={this.myProfile}>
-                                <i style={{fontSize: "28px"}} className="fa fa-user fa-3"/>
+                            <a><Icon style={{fontSize: "14px"}} onClick={this.myProfile}>
+                                <i className="fa fa-user"/>
                             </Icon></a>
                             <SubTitle style={{color:"white"}}>
                                 Welcome, {this.username}!

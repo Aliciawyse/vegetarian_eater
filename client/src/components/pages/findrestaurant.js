@@ -99,7 +99,7 @@ render() {
                       <Container>
                          {/*{div}*/}
                           <Title>Find Restaurants</Title>
-                          <SubTitle>A simple way to find restaurants that serve <strong>vegetarian</strong> meals that you love.</SubTitle>
+                          <SubTitle>Search the Zomato API to find restaurants that serve <strong>vegetarian</strong> meals that you love.</SubTitle>
 
                         {/*  <form style={{marginBottom:"3%"}}>
                               <Input

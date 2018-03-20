@@ -69,7 +69,7 @@ class Findrec extends Component {
 
                           <Title>Find Recipes</Title>
 
-                          <SubTitle>A simple way to find <strong>recipes</strong>.</SubTitle>
+                          <SubTitle>Search the Edamam API to find <strong>recipes</strong>.</SubTitle>
 
                           <form className="form" style={{marginTop:"2%"}}>
 
@@ -106,17 +106,15 @@ class Findrec extends Component {
                                   <Card.Header>
                                       <Card.Header.Title>
                                           {recipe.recipe.label}
-                                          <SaveButton
-                                          id = {recipe.recipe.label}
-                                          uid = {this.state.uid}
-                                          url = {recipe.recipe.url}
-                                          image = {recipe.recipe.image}
-                                          >
-                                          </SaveButton>
-
                                       </Card.Header.Title>
                                   </Card.Header>
                                   <a  target="_blank" href={recipe.recipe.url}>View Recipe</a>
+                                  <SaveButton
+                                      id = {recipe.recipe.label}
+                                      uid = {this.state.uid}
+                                      url = {recipe.recipe.url}
+                                      image = {recipe.recipe.image}>
+                                  </SaveButton>
 
                               </Card>
                           </div>

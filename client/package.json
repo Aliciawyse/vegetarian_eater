@@ -7,6 +7,8 @@
     "node": "6.11.2"
   },
   "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.4",
+    "@fortawesome/react-fontawesome": "0.0.17",
     "axios": "^0.17.1",
     "bulma": "^0.6.2",
     "express": "^4.16.2",
