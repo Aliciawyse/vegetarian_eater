@@ -4,9 +4,6 @@ import {Icon} from 'reactbulma'
 import FontAwesome from 'react-fontawesome'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 
-//import 'font-awesome/css/font-awesome.min.css';
-
-
 
 class SaveButton extends Component {
 

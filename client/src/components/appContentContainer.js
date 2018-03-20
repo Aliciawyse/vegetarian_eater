@@ -15,7 +15,6 @@ class appContainer extends React.Component {
 
     constructor({match, ...props}){
         super(props)
-        this.username = window.localStorage.getItem("the user");
 
     }
 
