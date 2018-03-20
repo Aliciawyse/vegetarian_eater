@@ -10,7 +10,7 @@ import { Section, Container, Title, SubTitle, Input, Button, Hero} from 'reactbu
 class LandingPage extends React.Component {
     // Set the components initial state..
 
-componentDidMount() {
+componentWillMount() {
     document.title = "Vegetarian Eater";
   }
     render() {
@@ -92,7 +92,7 @@ componentDidMount() {
                     window.localStorage.setItem("the user", userName);
 
                     console.log("User has successfully signed in!!!" + JSON.stringify(user));
-                    console.log(user.uid, user.email )
+                    console.log(user.uid, user.email, userName )
                     mongoUsers.push({
                     id: user.uid, 
                     email: user.email
