@@ -39,7 +39,7 @@ class appContainer extends React.Component {
                     <Level.Right>
                         <Level.Item>
 
-                            <a><Icon style={{fontSize: "14px"}} onClick={this.myProfile}>
+                            <a><Icon style={{fontSize: "28px"}} onClick={this.myProfile}>
                                 <i className="fa fa-user"/>
                             </Icon></a>
                             <SubTitle style={{color:"white"}}>
