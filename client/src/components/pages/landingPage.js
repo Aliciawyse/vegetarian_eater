@@ -115,6 +115,7 @@ componentWillMount() {
             const errorCode = error.code;
             const errorMessage = error.message;
             console.log("An error occurred creating the user: " + error.message);
+            alert("An error occurred creating the user: " + error.message)
         });
     }
 
