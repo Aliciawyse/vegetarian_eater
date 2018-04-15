@@ -8,7 +8,7 @@ app.get("/search-recipes", (req, res) => {
 	console.log(req.query[0])
   
   axios
-    .get("https://api.edamam.com/search?q=" + req.query[0] + "&app_id=" + appid + "&app_key=" + appkey + '&from0&to20')
+    .get("https://api.edamam.com/search?q=" + req.query[0] + "&app_id=" + appid + "&app_key=" + appkey + '&from0&to20&health=vegetarian')
     .then(function(body) {
     //console.log(body.data);
     res.send(body.data.hits)
