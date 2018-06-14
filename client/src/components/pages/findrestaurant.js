@@ -50,10 +50,23 @@ handleFormSubmit = event => {
 
     searchCurLoc = event => {
 
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(cb);
+                console.log("coords")
+
+
+            } else {
+              console.log("Geolocation is not supported by this browser.")
+            }
+        }
+        function cb(position){
+          console.log("new method " + position)
+        }
         geolocation.getCurrentPosition((err, position) => {
 
             if (err)
-                throw err
+                console.log(err)
 
             else{
                 console.log(position)
@@ -71,25 +84,36 @@ handleFormSubmit = event => {
         })
     };
 
+
+    renderModal = event => {
+      if (this.state.modal == "show"){
+        this.state.modal = "hide"
+      }
+      else if (this.state.modal == "hide"){
+        this.state.modal = "show"
+      }
+
+    }
+
 render() {
 
-  //let div = null
+  let div = null
 
-  /*if (this.state.modal = "show"){
-      div = <div class="modal">
+if (this.state.modal == "show"){
+      div = <div class="modal" onClick={this.renderModal}>
                 <div class="modal-content">
                     <p>Some text in the Modal..</p>
                 </div>
             </div>
   }
 
-  else if (this.state.modal = "hide"){
+  else if (this.state.modal == "hide"){
      div = <div class="modal">
                 <div class="modal-content">
                     <p>Some text in the Modal..</p>
                 </div>
             </div>
-  }*/
+  }
 
     return (
       <div>
@@ -97,7 +121,7 @@ render() {
               <Hero>
                   <Hero.Body>
                       <Container>
-                         {/*{div}*/}
+                         {div}
                           <Title>Find Restaurants</Title>
                           <SubTitle>Search the Zomato API to find restaurants that serve <strong>vegetarian</strong> meals that you love.</SubTitle>
 
