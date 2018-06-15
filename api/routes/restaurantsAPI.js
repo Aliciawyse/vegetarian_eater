@@ -55,8 +55,8 @@ module.exports = function (app){
             count: 10,
             lat:req.query.lat,
             lon:req.query.lon,
-            radius: 2000.9,
-            cuisines: '308',
+            radius: 1500.9,
+            cuisines: 308,
             sort: 'radius',
             order: 'desc'
         })

@@ -44,15 +44,13 @@ class Findrec extends Component {
             API.getRecipes(search)
             .then(res => {
                 console.log(res.data)
-                this.setState({ 
-                    results: res.data,
-                    search: "",
-                    arr: res.data,
-                    uid: localStorage.getItem('id'),
-                    searched: true
-                })
+                 this.setState({ 
+                        results: res.data,
+                        search: "",
+                        arr: res.data,
+                        uid: localStorage.getItem('id')
+                  })
 
-                console.log(this.state.searched)
             }).catch(err => console.log(err));
         }
     };
@@ -102,19 +100,22 @@ class Findrec extends Component {
 
                           <div style={{display:"inline-block", width:"20%", margin:"3%" }}>
                               <Card>
-                                  <Card.Image src = {recipe.recipe.image} square ='4by3' />
+                                  <Card.Image src={recipe.recipe.image} square='4by3' />
                                   <Card.Header>
                                       <Card.Header.Title>
                                           {recipe.recipe.label}
+                                          <SaveButton
+                                          id={recipe.recipe.label}
+                                          uid = {this.state.uid}
+                                          url = {recipe.recipe.url}
+                                          image = {recipe.recipe.image}
+                                          >
+                                          <br></br>
+                                          </SaveButton>
+
                                       </Card.Header.Title>
                                   </Card.Header>
                                   <a  target="_blank" href={recipe.recipe.url}>View Recipe</a>
-                                  <SaveButton
-                                      id = {recipe.recipe.label}
-                                      uid = {this.state.uid}
-                                      url = {recipe.recipe.url}
-                                      image = {recipe.recipe.image}>
-                                  </SaveButton>
 
                               </Card>
                           </div>

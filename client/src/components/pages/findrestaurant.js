@@ -4,7 +4,7 @@ import geolocation from 'geolocation'
 import { Section, Container, Title, SubTitle, Input, Button, Hero, Card, Content} from 'reactbulma'
 
 const buttonStyle = {
-    marginRight:"1%"
+    margin:"1%"
 };
 
 class Findres extends Component {

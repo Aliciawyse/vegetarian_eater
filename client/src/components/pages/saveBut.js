@@ -60,6 +60,7 @@ class SaveButton extends Component {
       		    clicked: false,
                 value:'unsave'
       	    });
+
             API.savingRecipes('unsave',this.props.uid,this.props.id,this.props.url, this.props.image).then(response=>(console.log(response)))
         }
         else if (this.state.clicked ==false){
